@@ -1,6 +1,10 @@
 from .time_frame_multiplier import (
-    time_frame_multiplier 
+    time_frame_multiplier
 )
+
+def lower_column_headers(data_frame):
+    data_frame.columns = data_frame.columns.str.lower()
+    return data_frame
 
 time_frames = {
     '1m': 60*1000,

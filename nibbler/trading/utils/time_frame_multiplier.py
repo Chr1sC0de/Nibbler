@@ -22,7 +22,7 @@ def time_frame_multiplier(
     for i in np.arange(n_entries):
         # if all([len(tmp)%time_factor == 0,len(tmp) >0]) :
         tmp = \
-            data_frame.loc[i*time_factor:((i+1)*time_factor-1)][columns].values   
+            data_frame.loc[i*time_factor:((i+1)*time_factor-1)][columns].values
         # now it is time to populate the dataframe
         df.loc[i][columns] = \
             [

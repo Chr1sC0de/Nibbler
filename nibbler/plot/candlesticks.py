@@ -3,7 +3,7 @@ from ..trading.utils import time_frames
 
 def candlesticks(
         df, lims='all', fig=None, w='4h', skip=0, **kwargs
-        
+
     ):
     if lims is not 'all':
         df = df[lims[0]:lims[1]]
@@ -15,9 +15,9 @@ def candlesticks(
     w = time_frames[w]
 
     p =  utils.initialize_figure(fig, **kwargs)
-    
+
     scale_width = 0.15
-    
+
     p.grid.grid_line_alpha=0.3
     p.segment(df.datetime, df.high, df.datetime, df.low, color="black")
     p.vbar(
