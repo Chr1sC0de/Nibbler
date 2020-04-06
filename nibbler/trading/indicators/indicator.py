@@ -53,11 +53,17 @@ class IndicatorBase:
 
     @classmethod
     def random_initialization(cls, function, scale_default=3):
-        arguments, parameters = cls.read_parameters_and_arguments(function)
+        _, parameters = cls.read_parameters_and_arguments(function)
         randomly_initializable = {}
+
         for key, value in parameters:
             if isinstance(value, int):
-                randomly_initializable[key] = np.random.randint(1, value*scale_default)
+                randomly_initializable[key] = \
+                    np.random.randint(1, int(value*scale_default))
+            if isinstance(value, float):
+                randomly_initializable[key] = \
+                    np.random.randint(1, float(value*scale_default))
+
         return cls(function, **randomly_initializable)
 
 class Indicator(IndicatorBase):

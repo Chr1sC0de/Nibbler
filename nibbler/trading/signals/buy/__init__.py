@@ -1,0 +1,1 @@
+from .savtizky_golay_min import SavitzkyGolayMin

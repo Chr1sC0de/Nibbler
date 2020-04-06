@@ -15,8 +15,3 @@ if __name__ == "__main__":
 
     df = pd.read_csv(corn_file)
     plot.show(plot.candlesticks(df))
-
-
-
-
-
