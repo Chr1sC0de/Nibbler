@@ -346,11 +346,10 @@ class MarketLong(Strategy):
         self.TRADETARGET = self.buy_signal.target
 
         return self.position_amount
-
 ````
 
 
-### Brute Force Optimization
+### Brute Force Walk-Forward Optimization
 
 Once we get here it is time to pit our little nibbler strategies into mono v mono mortal combat to see which strategey will live.
 Initialize a population of strategies with the ````Initialization```` methods and see how good your strategies can get.
@@ -366,7 +365,7 @@ Initialize a population of strategies with the ````Initialization```` methods an
     import pandas as pd
     import pathlib as pt
 
-    //setttings for the signals and the strategy
+    # setttings for the signals and the strategy
     buy_signal_kwargs = dict(
         min_window=3, max_window=20,
         min_poly=3, max_poly=5
@@ -398,7 +397,7 @@ Initialize a population of strategies with the ````Initialization```` methods an
         n_population=16
     )
 
-    this guard is necessary for enabling multiprocesssing
+    # this guard is necessary for enabling multiprocesssing
     if __name__ == "__main__":
 
         cwd = pt.Path(__file__).parent
@@ -415,6 +414,9 @@ Initialize a population of strategies with the ````Initialization```` methods an
 
         plot.show(p)
 
+        # save the best nibbler strategy, which contains the best nibtard, time to put em in the burner and go live
+        # get ready to lose everything
+
         nd.save(
             pt.Path(__file__).parent/"best_lad",
             optimizer.population[-1]
@@ -424,5 +426,8 @@ Initialize a population of strategies with the ````Initialization```` methods an
 ### Out of Sample Brute Force Optimization
     to do
 
+### Brute Force Monte-Carlo Optimization
+    to do
+
 ## Going Live
-    Binance API
+    Binance API agents currently created
