@@ -15,7 +15,7 @@ dataframe = pd.read_csv(data_file)
 
 if __name__ == "__main__":
 
-    buy_signal = signals.buy.SavitzkyGolayMinFilteredGrads()
+    buy_signal = signals.buy.candlesticks.Doji()
     sell_signal = signals.sell.SavitzkyGolayMaxFilteredGrads()
 
     strategy = strategy.MarketLong(

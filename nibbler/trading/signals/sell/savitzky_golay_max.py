@@ -28,10 +28,17 @@ class SavitzkyGolayMax(SellSignal):
         self.past_signalled_features = []
 
     def generate_features(self, dataframe):
+        original_length = len(dataframe)
+        if len(dataframe > 1000):
+            dataframe = dataframe.iloc[-1000:]
+        difference = original_length - len(dataframe)
         features = self.indicators[0](dataframe)
         features = max_finder(features)
         features = np.argwhere(features).squeeze()
-        return features
+        try:
+            return np.array(features)+difference
+        except:
+            return features
 
     def __call__(self, dataframe):
         N = len(dataframe)

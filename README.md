@@ -373,8 +373,8 @@ class MarketLong(Strategy):
 
 ### Brute Force Walk-Forward Optimization
 
-Once we get here it is time to pit our little nibbler strategies into mono v mono mortal combat to see which strategey will live.
-Initialize a population of strategies with the ````Initialization```` methods and see how good your strategies can get.
+Once we get here it is time to pit our little nibbler strategies into mono v mono mortal combat to see which strategy will live.
+Initialize a population of strategies with ````Initialization```` methods,
 
 ````
     import nibbler as nd

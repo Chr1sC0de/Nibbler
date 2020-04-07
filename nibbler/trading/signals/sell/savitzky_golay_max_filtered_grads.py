@@ -31,6 +31,10 @@ class SavitzkyGolayMaxFilteredGrads(SellSignal):
         self.past_signalled_features = []
 
     def generate_features(self, dataframe):
+        original_length = len(dataframe)
+        if len(dataframe > 1000):
+            dataframe = dataframe.iloc[-1000:]
+        difference = original_length - len(dataframe) -1
         features = self.indicators[0](dataframe)
         indicator_parameters = self.indicators[0].parameters
         features = max_finder_filtered_grads(
@@ -39,7 +43,10 @@ class SavitzkyGolayMaxFilteredGrads(SellSignal):
             poly_order=indicator_parameters['polyorder']
         )
         features = np.argwhere(features).squeeze()
-        return features
+        try:
+            return np.array(features)+difference
+        except:
+            return features
 
     def __call__(self, dataframe):
         N = len(dataframe)
