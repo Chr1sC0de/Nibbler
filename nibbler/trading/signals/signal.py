@@ -16,6 +16,7 @@ class Signal:
     def __init__(self, *indicators):
         self.indicators_dict = OrderedDict()
         self.target = None
+        self.stop = None
         self.signalled = []
         for indicator in indicators:
             assert issubclass(indicator.__class__, Indicator)
@@ -37,7 +38,7 @@ class Signal:
     def generate_features(self, data_frame):
         NotImplemented
 
-    def __call__(self, data_frame):
+    def __call__(self, data_frame, calculate_stop=False):
         NotImplemented
 
     def save(self, path):
