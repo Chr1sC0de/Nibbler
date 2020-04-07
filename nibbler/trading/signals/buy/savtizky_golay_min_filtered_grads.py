@@ -36,7 +36,7 @@ class SavitzkyGolayMinFilteredGrads(BuySignal):
         features = min_finder_filtered_grads(
             features,
             window_length=indicator_parameters['window_length'],
-            poly_order=indicator_parameters['poly_order']
+            poly_order=indicator_parameters['polyorder']
         )
         features = np.argwhere(features).squeeze()
         return features

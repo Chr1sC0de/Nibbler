@@ -8,7 +8,6 @@ from nibbler import plot
 import pandas as pd
 import pathlib as pt
 
-
 # setttings for the signals and the strategy
 buy_signal_kwargs = dict(
     min_window=3, max_window=20,
@@ -32,8 +31,13 @@ strategy_kwargs = dict(
 )
 
 strategy_population = MarketStrategyInitialization(
-    SavitzkyGolayMinFilteredGrads, SavitzkyGolayMaxFilteredGrads, MarketLong,
-    buy_signal_kwargs, sell_signal_kwargs, strategy_kwargs, n_population=1
+    SavitzkyGolayMinFilteredGrads,
+    SavitzkyGolayMaxFilteredGrads,
+    MarketLong,
+    buy_signal_kwargs,
+    sell_signal_kwargs,
+    strategy_kwargs,
+    n_population=16
 )
 
 # this guard is necessary for enabling multiprocesssing
@@ -47,6 +51,13 @@ if __name__ == "__main__":
 
     optimizer = BruteForceSingleDataset(strategy_population)
 
-    optimizer.calculate_fitness(dataframe.iloc[0:1000], n_processors=1)
+    optimizer.calculate_fitness(dataframe.iloc[0:1000], n_processors=8)
 
-    breaker = 1
+    p = optimizer.population[-1].plot_trade_and_equity()
+
+    plot.show(p)
+
+    nd.save(
+        pt.Path(__file__).parent/"best_lad",
+        optimizer.population[-1]
+    )

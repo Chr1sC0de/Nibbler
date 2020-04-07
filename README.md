@@ -209,9 +209,48 @@ A trading strategy must take into consideration, to name a few, the following:
 6. exit method
 
 ### Strategies
+Strategies are a combination of signals and risk management methods. The strategy class is constructed with the following structure
+
+````
+Class Strategy:
+    def __init__(
+        self,
+        buy_signal,
+        sell_signal,
+        initial_account_balance = 1000,
+        stop_calculator = None,
+        slippage_frac = 0.0001,
+        maker_fee_frac = 0.001,
+        taker_fee_frac = 0.001,
+        max_leverage = 100,
+        use_leverage = False,
+        leverage = 1
+    ):
+    def walk_dataset(self, data, nskip=100):
+    def __call__(self, data):
+    def buy(self, data):
+        # Implemented By User
+    def sell(self, data):
+        # Implemented By User
+    def position_calculator(self, data):
+        # Implemented By User
+    def build_trade_log(self, percent_wins, win_loss_value):
+    def log_loss(self, pnl_percent):
+    def log_win(self, pnl_percent):
+    def is_liquidated(self, data):
+    def long_with_slippage(self, data):
+    def plot_trades(self, fig = None, size = 20, width=1300, height=500):
+    def plot_equity(self, fig=None, width=1300, height=500, **kwargs):
+    def plot_trade_and_equity(self, share_axis=True):
+    def save(self, path):
+````
+
 
 ### Brute Force Optimization
-
+    to do
 ### Out of Sample Brute Force Optimization
+    to do
+
 
 ## Going Live
+    to do
