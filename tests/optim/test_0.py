@@ -33,7 +33,7 @@ strategy_kwargs = dict(
 
 strategy_population = MarketStrategyInitialization(
     SavitzkyGolayMinFilteredGrads, SavitzkyGolayMaxFilteredGrads, MarketLong,
-    buy_signal_kwargs, sell_signal_kwargs, strategy_kwargs, n_population=50
+    buy_signal_kwargs, sell_signal_kwargs, strategy_kwargs, n_population=1
 )
 
 # this guard is necessary for enabling multiprocesssing
@@ -47,6 +47,6 @@ if __name__ == "__main__":
 
     optimizer = BruteForceSingleDataset(strategy_population)
 
-    optimizer.calculate_fitness(dataframe.iloc[0:1000], n_processors=8)
+    optimizer.calculate_fitness(dataframe.iloc[0:1000], n_processors=1)
 
     breaker = 1

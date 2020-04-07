@@ -32,7 +32,12 @@ class SavitzkyGolayMaxFilteredGrads(SellSignal):
 
     def generate_features(self, dataframe):
         features = self.indicators[0](dataframe)
-        features = max_finder_filtered_grads(features)
+        indicator_parameters = self.indicators[0].parameters
+        features = max_finder_filtered_grads(
+            features,
+            window_length=indicator_parameters['window_length'],
+            poly_order=indicator_parameters['poly_order']
+        )
         features = np.argwhere(features).squeeze()
         return features
 
