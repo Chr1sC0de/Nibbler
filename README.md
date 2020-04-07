@@ -1,6 +1,9 @@
 # Nibbler
 
-A library for crypto algorithmic trading
+A degenerates library for algorithmic crypto trading. Make a strat go live, get bogged, get rekt. Make a strat, optimize go live, moon, buy lambo,
+get chainlink, lose it all, rinse and repeat.
+
+Welcome to crypto.
 
 ## Installation
 
@@ -27,7 +30,7 @@ For example collecting data from binance can be performed,
 from nibbler import trading as td
 from pathlib import Path
 directory = Path(__file__).parent
-filename = 'binance1h.csv'
+filename = {relative_filename}
 filepath = directory/filename
 collector = td.collectors.BinanceBTC('1h')
 collector.run(filepath, multiplier=4)
@@ -197,7 +200,7 @@ class SavitzkyGolayMin(BuySignal):
 In the above signal, as it is lagging, the past min features must be stored and checked to avoid repeating a signal. These types of checks must be taken into consideration when designing a strategy.
 
 ## Strategies and Optimiztion
-A trading must take into consideration, to name a few, the following:
+A trading strategy must take into consideration, to name a few, the following:
 1. buy signal
 2. stop
 3. sell signal
@@ -207,5 +210,8 @@ A trading must take into consideration, to name a few, the following:
 
 ### Strategies
 
-
 ### Brute Force Optimization
+
+### Out of Sample Brute Force Optimization
+
+## Going Live

@@ -7,3 +7,6 @@ from .min_max import (
     min_finder, min_close, min_high, min_low, min_open,
     min_finder_filtered, max_finder_filtered
 )
+from .min_max_savitzkied import (
+    min_finder_filtered_grads, max_finder_filtered_grads
+)

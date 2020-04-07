@@ -18,7 +18,7 @@ class Signal:
         self.target = None
         self.signalled = []
         for indicator in indicators:
-            assert isinstance(indicator, Indicator)
+            assert issubclass(indicator.__class__, Indicator)
             if indicator.__class__.__name__ in self.indicators_dict.keys():
                 counter = 0
                 for name in self.indicators_dict.keys():

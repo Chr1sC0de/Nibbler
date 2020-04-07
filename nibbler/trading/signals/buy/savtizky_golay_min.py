@@ -17,13 +17,15 @@ class SavitzkyGolayMin(BuySignal):
 
     @classmethod
     def random_initialization(cls, **kwargs):
-        return cls(SavitzkyGolayLow.random_initialization(**kwargs))
+        output = cls(SavitzkyGolayLow.random_initialization(**kwargs))
+        output.finder_kwargs = kwargs
+        return output
 
     def __init__(self, *args, lag=20, **kwargs):
         if len(args) == 0:
             super().__init__(SavitzkyGolayLow(**kwargs))
         else:
-            super().__init__(args)
+            super().__init__(*args)
         self.lag = lag
         self.past_signalled_features = []
 
@@ -36,11 +38,14 @@ class SavitzkyGolayMin(BuySignal):
     def __call__(self, dataframe):
         N = len(dataframe)
         features = self.generate_features(dataframe)
-        latest_time_features = features[-1]
-        if (latest_time_features + self.lag) > N:
-            if latest_time_features in self.past_signalled_features:
-                return False
-            else:
-                self.signalled.append(len(dataframe))
-                self.past_signalled_features.append(latest_time_features)
-                return True
+        try:
+            latest_time_features = features[-1]
+            if (latest_time_features + self.lag) > N:
+                if latest_time_features in self.past_signalled_features:
+                    return False
+                else:
+                    self.signalled.append(len(dataframe))
+                    self.past_signalled_features.append(latest_time_features)
+                    return True
+        except:
+            return False

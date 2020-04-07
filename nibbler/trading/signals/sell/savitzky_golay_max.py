@@ -23,7 +23,7 @@ class SavitzkyGolayMax(SellSignal):
         if len(args) == 0:
             super().__init__(SavitzkyGolayHigh(**kwargs))
         else:
-            super().__init__(args)
+            super().__init__(*args)
         self.lag=lag
         self.past_signalled_features = []
 
@@ -37,10 +37,13 @@ class SavitzkyGolayMax(SellSignal):
         N = len(dataframe)
         features = self.generate_features(dataframe)
         latest_time_features = features[-1]
-        if (latest_time_features + self.lag) > N:
-            if latest_time_features in self.past_signalled_features:
-                return False
-            else:
-                self.signalled.append(latest_time_features)
-                self.past_signalled_features.append(latest_time_features)
-                return True
+        try:
+            if (latest_time_features + self.lag) > N:
+                if latest_time_features in self.past_signalled_features:
+                    return False
+                else:
+                    self.signalled.append(latest_time_features)
+                    self.past_signalled_features.append(latest_time_features)
+                    return True
+        except:
+            return False

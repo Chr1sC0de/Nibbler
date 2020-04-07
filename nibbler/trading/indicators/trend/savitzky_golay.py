@@ -8,13 +8,15 @@ import numpy as np
 
 class SavitzkyGolayBase(Indicator):
     @classmethod
-    def random_initialization(cls, min_window, max_window, min_poly, max_poly):
-        window_length = np.random.randint(min_window, max_window)
+    def random_initialization(cls,
+            min_window=3, max_window=20,
+            min_poly=3, max_poly=5):
+        window_length = make_odd(np.random.randint(min_window, max_window))
         poly = np.random.randint(
             min_poly, np.min([max_poly, window_length])
         )
         return cls( window_length=window_length, polyorder=poly,
-        deriv=0, delta=1.0, mode='interp', cval=0)
+            deriv=0, delta=1.0, mode='interp', cval=0)
 
 class SavitzkyGolayOpen(SavitzkyGolayBase):
 
