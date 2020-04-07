@@ -1,7 +1,23 @@
 # Nibbler
 
-A degenerates library for algorithmic crypto trading. Make a strat go live, get bogged, get rekt. Make a strat, optimize go live, moon, buy lambo,
-get chainlink, lose it all, rinse and repeat.
+A degenerates library for algorithmic crypto trading.
+
+The old way:
+    Make a strat
+    go live
+    get bogged.
+    get rekt.
+    return zero
+
+The new modern way:
+    while True:
+        Make a strat
+        optimize
+        go live
+        moon
+        buy lambo
+        get chainlink
+        lose it all
 
 Welcome to crypto.
 
@@ -19,9 +35,15 @@ To install in release mode,
 ````
 python -m pip install .
 ````
+To install TA-Lib, in the top of the directory,
+````
+python -m pip install TA_Lib-0.4.17-cp37-cp37m-win_amd64.whl
+````
+
+if you have a different version of python or os, download the correct version from https://www.lfd.uci.edu/~gohlke/pythonlibs/#ta-lib
 
 ## Data Collection
-We provided a convenience wrapper over ccxt to simplify data collection. Data can be collected via collector classes found in the trading collectors module
+We provide a convenience wrapper over ccxt to simplify data collection. Data can be collected via collector classes found in the trading collectors module
 ````
 nibbler.trading.collectors.{exchange}{asset}
 ````
