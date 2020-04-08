@@ -3,4 +3,4 @@ _*/*
 myconfig.py
 nibblerEnv/
 nibbler.egg-info/
-__pycache__/
+*/__pycache__/

@@ -65,7 +65,7 @@ class Candlestikc:
             return [ ]
 
     def candlestickmethod(self, dataframe):
-        return          dojis = np.argwhere(
+        return np.argwhere(
             np.array(
                 talib.CDLDOJI(dataframe['open'], dataframe['high'], dataframe['low'], dataframe['close'])
             )
