@@ -1,4 +1,6 @@
-_*/**
-.vscode
+_*/*
+.vscode/
 myconfig.py
-nibblerEnv/*
+nibblerEnv/
+nibbler.egg-info/
+__pycache__/
