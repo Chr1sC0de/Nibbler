@@ -42,7 +42,6 @@ mistune==0.8.4
 multidict==4.7.5
 nbconvert==5.6.1
 nbformat==5.0.5
--e git+https://github.com/chrisam1993/Nibbler.git@f5019dbfeaeb7d2f3fedc1b4bea12ebfe20e7995#egg=nibbler
 notebook==6.0.3
 numpy==1.18.2
 packaging==20.3

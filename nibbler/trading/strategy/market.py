@@ -93,8 +93,10 @@ class MarketLong(Strategy):
             self.liquidation_price =  self.TRADEOPEN - self.account_balance/self.asset_amount
 
         if self.stop_calculator is not None:
-            self.TRADESTOP = self.stop_calculator
-
+            # the stop calculator takes in the current stop
+            self.TRADESTOP = self.stop_calculator(self, data)
+        if self.target_calculator is not None:
+            self.TRADETARGET = self.target_calculator(self, data)
         # signals will have a target attribute that is calcated
         # if a target is not calculated by a signal the signal will return None
         self.TRADETARGET = self.buy_signal.target

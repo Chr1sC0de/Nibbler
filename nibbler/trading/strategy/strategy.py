@@ -9,6 +9,7 @@ class Strategy:
         sell_signal,
         initial_account_balance = 1000,
         stop_calculator = None,
+        target_calculator = None,
         slippage_frac = 0.0001,
         maker_fee_frac = 0.001,
         taker_fee_frac = 0.001,
@@ -24,6 +25,7 @@ class Strategy:
         self.buy_signal = buy_signal
         self.sell_signal = sell_signal
         self.stop_calculator = stop_calculator
+        self.target_calculator = target_calculator
 
         self.slippage_frac = slippage_frac
         self.maker_fee_frac = maker_fee_frac
