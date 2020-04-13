@@ -15,9 +15,11 @@ class Strategy:
         taker_fee_frac = 0.001,
         max_leverage = 100,
         use_leverage = False,
-        leverage = 1
+        leverage = 1,
+        nskip = 500
     ):
         assert leverage < max_leverage
+        self.nskip = nskip
 
         self.initial_account_balance = initial_account_balance
         self.account_balance = initial_account_balance
@@ -64,15 +66,15 @@ class Strategy:
 
         self.in_trade = False
 
-    def walk_dataset(self, data, nskip=100):
+    def walk_dataset(self, data):
         self.full_dataset = data
-        N = len(data) - nskip
+        N = len(data) - self.nskip
         data.columns = data.columns.str.lower()
         for k in np.arange(N):
             if self.is_liquidated(data):
                 break
             else:
-                self(data[0:(k+nskip)])
+                self(data[0:(k+self.nskip)])
         if self.in_trade:
             self.sell(data)
 

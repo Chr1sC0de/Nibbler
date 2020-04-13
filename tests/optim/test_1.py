@@ -15,7 +15,7 @@ buy_signal_kwargs = dict(
 )
 
 sell_signal_kwargs = dict(
-    min_window=3, max_window=30,
+    min_window=30, max_window=150,
     min_poly=3, max_poly=5
 )
 
@@ -25,7 +25,7 @@ strategy_kwargs = dict(
     slippage_frac = 0.0001,
     maker_fee_frac = 0.001,
     taker_fee_frac = 0.001,
-    max_leverage = 100,
+    max_leverage = 300,
     use_leverage = False,
     leverage = 3
 )
@@ -37,7 +37,7 @@ strategy_population = MarketStrategyInitialization(
     buy_signal_kwargs,
     sell_signal_kwargs,
     strategy_kwargs,
-    n_population=50
+    n_population=100
 )
 
 # this guard is necessary for enabling multiprocesssing
