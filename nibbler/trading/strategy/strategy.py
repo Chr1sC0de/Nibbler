@@ -66,6 +66,8 @@ class Strategy:
 
         self.in_trade = False
 
+        self.stop_raised = False 
+
     def walk_dataset(self, data):
         self.full_dataset = data
         N = len(data) - self.nskip

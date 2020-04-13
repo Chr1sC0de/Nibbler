@@ -1,11 +1,11 @@
 try:
     from nibbler.trading.signals import SellSignal
     from nibbler.trading.indicators.trend import SavitzkyGolayHigh
-    from nibbler.trading.math import max_finder_filtered_grads
+    from nibbler.trading.math import max_finder_filtered_grads, make_odd
 except:
     from .. import SellSignal
     from ...indicators.trend import SavitzkyGolayHigh
-    from ...math import max_finder_filtered_grads
+    from ...math import max_finder_filtered_grads, make_odd
 
 import numpy as np
 
@@ -37,11 +37,22 @@ class SavitzkyGolayMaxFilteredGrads(SellSignal):
         difference = original_length - len(dataframe) -1
         features = self.indicators[0](dataframe)
         indicator_parameters = self.indicators[0].parameters
+
+        d_filter = make_odd(indicator_parameters['window_length']//2)
+        poly_order = np.min(
+            [indicator_parameters['polyorder'],
+            make_odd(indicator_parameters['window_length']//2)]
+        )
+
+        if poly_order == d_filter:
+            d_filter = int(make_odd(d_filter*1.5))
+
         features = max_finder_filtered_grads(
             features,
-            window_length=indicator_parameters['window_length'],
-            poly_order=indicator_parameters['polyorder']
+            window_length=d_filter,
+            poly_order=poly_order
         )
+
         features = np.argwhere(features).squeeze()
         try:
             return np.array(features)+difference

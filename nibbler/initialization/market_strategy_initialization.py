@@ -1,8 +1,9 @@
 import numpy as np
-
+import time
 def MarketStrategyInitialization(
         BuySignal, SellSignal, Strategy,
         buy_kwargs, sell_kwargs, strategy_kwargs,
+        stop_calculator=None,
         n_population=8
 ):
 
@@ -18,7 +19,9 @@ def MarketStrategyInitialization(
                         **strategy_kwargs
                     )
                 )
+                time.sleep(0.0001)
                 break
+
             except:
                 pass
 
