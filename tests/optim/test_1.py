@@ -11,13 +11,13 @@ import pathlib as pt
 
 # setttings for the signals and the strategy
 buy_signal_kwargs = dict(
-    min_window=3, max_window=80,
-    min_poly=3, max_poly=5
+    min_window=3, max_window=100,
+    min_poly=3, max_poly=7
 )
 
 sell_signal_kwargs = dict(
-    min_window=3, max_window=80,
-    min_poly=3, max_poly=5
+    min_window=3, max_window=100,
+    min_poly=3, max_poly=7
 )
 
 strategy_kwargs = dict(
@@ -38,7 +38,7 @@ strategy_population = MarketStrategyInitialization(
     buy_signal_kwargs,
     sell_signal_kwargs,
     strategy_kwargs,
-    n_population=500
+    n_population=100
 )
 
 # this guard is necessary for enabling multiprocesssing
@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     optimizer = BruteForceSingleDataset(strategy_population)
 
-    optimizer.calculate_fitness(dataframe.iloc[0:5000], n_processors=8)
+    optimizer.calculate_fitness(dataframe, n_processors=8)
 
     p = optimizer.population[-1].plot_trade_and_equity()
 

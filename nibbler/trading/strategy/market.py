@@ -23,7 +23,7 @@ class MarketLong(Strategy):
             if self.in_trade:
                 if self.TRADESTOP is not None:
                     if data.low.iloc[-1] <= self.TRADESTOP:
-                        self.sell(data, stop=self.TRADESTOP)
+                        self.sell(data, stop=None)
                         self.stop_raised = False
     
             if self.in_trade:
