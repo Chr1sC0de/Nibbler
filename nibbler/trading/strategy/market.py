@@ -27,7 +27,7 @@ class MarketLong(Strategy):
                         self.stop_raised = False
     
             if self.in_trade:
-                if data.close.iloc[-1] > (self.TRADEOPEN + 2*(self.TRADEOPEN - self.TRADESTOP)):
+                if data.close.iloc[-1] > (self.TRADEOPEN + 1.5*(self.TRADEOPEN - self.TRADESTOP)):
                     if self.sell_signal(data):
                         self.sell(data)
                         self.stop_raised = False

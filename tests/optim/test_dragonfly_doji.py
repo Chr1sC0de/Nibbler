@@ -1,6 +1,6 @@
 import nibbler as nd
 from nibbler.optim import BruteForceSingleDataset
-from nibbler.trading.signals.buy.candlesticks import Doji
+from nibbler.trading.signals.buy.candlesticks import DragonflyDoji
 from nibbler.trading.signals.sell import SavitzkyGolayMaxFilteredGrads
 from nibbler.trading.strategy import MarketLong
 from nibbler.trading.stops import atr_stopper
@@ -32,13 +32,13 @@ strategy_kwargs = dict(
 )
 
 strategy_population = MarketStrategyInitialization(
-    Doji,
+    DragonflyDoji,
     SavitzkyGolayMaxFilteredGrads,
     MarketLong,
     buy_signal_kwargs,
     sell_signal_kwargs,
     strategy_kwargs,
-    n_population=200
+    n_population=500
 )
 
 # this guard is necessary for enabling multiprocesssing
