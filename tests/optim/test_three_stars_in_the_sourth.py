@@ -1,6 +1,6 @@
 import nibbler as nd
 from nibbler.optim import BruteForceSingleDataset
-from nibbler.trading.signals.buy.candlesticks import DragonflyDoji
+from nibbler.trading.signals.buy.candlesticks import MorningDojiStar
 from nibbler.trading.signals.sell import SavitzkyGolayMaxFilteredGrads
 from nibbler.trading.strategy import MarketLong
 from nibbler.trading.stops import atr_stopper
@@ -32,13 +32,13 @@ strategy_kwargs = dict(
 )
 
 strategy_population = MarketStrategyInitialization(
-    DragonflyDoji,
+    MorningDojiStar,
     SavitzkyGolayMaxFilteredGrads,
     MarketLong,
     buy_signal_kwargs,
     sell_signal_kwargs,
     strategy_kwargs,
-    n_population=500
+    n_population=50
 )
 
 # this guard is necessary for enabling multiprocesssing
@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     optimizer = BruteForceSingleDataset(strategy_population)
 
-    optimizer.calculate_fitness(dataframe[0:5000], n_processors=1)
+    optimizer.calculate_fitness(dataframe[0:5000], n_processors=8)
 
     p = optimizer.population[-1].plot_trade_and_equity()
 

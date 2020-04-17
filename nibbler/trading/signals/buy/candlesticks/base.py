@@ -60,7 +60,13 @@ class Candlestick(BuySignal):
         # return np.array(feature_dojos).squeeze()
 
         if lows[-1] > maxes[-1]:
-            return [features[-1]+difference,]
+            if features.size:
+                if features.size == 1:
+                    return [int(features)+difference,]
+                else:
+                    return [features[-1]+difference,]
+            else:
+                return [ ]
         else:
             return [ ]
 
