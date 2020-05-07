@@ -1,5 +1,6 @@
 import talib
 import numpy as np
+
 def atr_stopper(trading_env, data):
 
     atr_values = talib.ATR(

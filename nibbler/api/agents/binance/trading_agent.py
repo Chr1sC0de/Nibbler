@@ -27,7 +27,9 @@ class TradingAgentBase(object):
     def __init__(
         self, *,
         api_key, secret_key,
-        risk=0.005, symbol="BTCUSDT"
+        risk=0.005, symbol="BTCUSDT",
+        stop_calculator = None,
+        target_calculator = None
         ):
         self.__api_key = api_key
         self.__secret_key = secret_key
@@ -35,6 +37,30 @@ class TradingAgentBase(object):
         self.requester = bf.RequestClient(api_key=api_key, secret_key=secret_key)
         self.balance = self.get_balance()
         self.symbol = symbol
+
+        self.TRADEOPEN = None
+        self.TRADECLOSE = None
+        self.TRADESTOP = None
+        self.TRADETARGET = None
+
+        self.stop_calculator = stop_calculator
+        self.target_calculator = target_calculator
+
+        self.balance_history = [self.balance]
+        self.won = 0
+        self.lost = 0
+        self.win_log = []
+        self.lost_log = []
+        self.avg_win_percent = 0
+        self.avg_loss_percent = 0
+        self.biggest_win_percent = 0
+        self.biggest_loss_percent = 0
+        self.buy_stamp = []
+        self.sell_stamp = []
+        self.percent_wins_total = 0
+
+        self.in_trade = False
+        self.stop_raised = False
 
     @property
     def precision_price(self):
@@ -220,8 +246,6 @@ class TradingAgentBase(object):
                     order.orderId
                 )
 
-
-
 class TradingAgentSpecialEntries(TradingAgentBase):
 
     @is_successful
@@ -286,8 +310,6 @@ class TradingAgentSpecialEntries(TradingAgentBase):
         )
 
         solsum = mirco_orders.sum()
-
-        # error = np.abs((quantity-solsum)/quantity*100)
 
         mirco_orders = mirco_orders-(quantity-solsum)/n_entries
 

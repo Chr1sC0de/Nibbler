@@ -1,11 +1,12 @@
 import numpy as np
-import config
+import myconfig
 from nibbler.api.agents.binance import TradingAgentSpecialEntries
 
 if __name__ == "__main__":
+
     agent = TradingAgentSpecialEntries(
-        api_key=config.APIKEY,
-        secret_key=config.SECRETKEY
+        api_key=myconfig.APIKEY,
+        secret_key=myconfig.SECRETKEY
     )
 
     print("bids")
@@ -24,21 +25,26 @@ if __name__ == "__main__":
     stopPrice = np.round(stopPrice,decimals=2)
     priceDeviation = atr/2
 
-    if True:
-        orders = agent.risk_based_distributed_buy_entry(
-            meanPrice=mean_price,
-            stopPrice=stopPrice, quantity=quantity,
-            priceDeviation=priceDeviation,
-            n_entries=10,
-            )
 
-        agent.protect_buy_orders(
-            stopPrice=stopPrice,
-            orderList=orders)
-    else:
-        agent.sell_scale_out_buy(
-            quantity=0.091,
-            meanPrice=7929.16, priceDeviation=priceDeviation,
-            n_entries=5
-        )
+    position = agent.market_buy_order(quantity=0.001)
+
     pass
+
+    # if True:
+    #     orders = agent.risk_based_distributed_buy_entry(
+    #         meanPrice=mean_price,
+    #         stopPrice=stopPrice, quantity=quantity,
+    #         priceDeviation=priceDeviation,
+    #         n_entries=10,
+    #         )
+
+    #     agent.protect_buy_orders(
+    #         stopPrice=stopPrice,
+    #         orderList=orders)
+    # else:
+    #     agent.sell_scale_out_buy(
+    #         quantity=0.091,
+    #         meanPrice=7929.16, priceDeviation=priceDeviation,
+    #         n_entries=5
+    #     )
+    # pass

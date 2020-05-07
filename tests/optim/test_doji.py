@@ -1,4 +1,5 @@
 import nibbler as nd
+import numpy as np
 from nibbler.optim import BruteForceSingleDataset
 from nibbler.trading.signals.buy.candlesticks import Doji
 from nibbler.trading.signals.sell import SavitzkyGolayMaxFilteredGrads
@@ -47,12 +48,12 @@ if __name__ == "__main__":
     cwd = pt.Path(__file__).parent
     resource_folder = cwd/"../../resources"
 
-    data_file = resource_folder/"BitcoinBinance1hr.csv"
+    data_file = resource_folder/"BitcoinBinance4hr.csv"
     dataframe = pd.read_csv(data_file)
 
     optimizer = BruteForceSingleDataset(strategy_population)
 
-    optimizer.calculate_fitness(dataframe[0:5000], n_processors=8)
+    optimizer.calculate_fitness(dataframe, n_processors=4)
 
     p = optimizer.population[-1].plot_trade_and_equity()
 
@@ -60,7 +61,10 @@ if __name__ == "__main__":
 
     print(optimizer.population[-1].trade_log)
 
-    nd.save(
-        pt.Path(__file__).parent/"best_lad",
-        optimizer.population[-1]
+    bestbot = optimizer.population[-1]
+
+    np.savez(
+        pt.Path(__file__).parent/"trainedSignals4hr",
+        bull_signal=bestbot.buy_signal,
+        bear_signal=bestbot.sell_signal
     )
