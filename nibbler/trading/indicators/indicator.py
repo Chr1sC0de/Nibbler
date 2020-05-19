@@ -38,7 +38,7 @@ class IndicatorBase:
     def __call__(self, dataframe):
         dataframe = lower_column_headers(dataframe)
         return self.function(
-            *[dataframe[key] for key in self.data_frame_args],
+            *[dataframe[key].values for key in self.data_frame_args],
             **self.parameters
         )
 
