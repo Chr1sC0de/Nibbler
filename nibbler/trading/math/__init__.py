@@ -10,3 +10,8 @@ from .min_max import (
 from .min_max_savitzkied import (
     min_finder_filtered_grads, max_finder_filtered_grads
 )
+from .savgol import (
+    CausalSavgolFilter,
+    ConstantPaddingSavgolFilter,
+    PolyfitSavgolFilter
+)
