@@ -1,5 +1,5 @@
 import pathlib as pt
-from nibbler.optim.feed import Feed
+from nibbler.optim.assets import Feed
 
 
 if __name__ == "__main__":
@@ -18,6 +18,6 @@ if __name__ == "__main__":
 
         print(data.shape)
         
-        if i>10:
+        if i>20:
             break
 
