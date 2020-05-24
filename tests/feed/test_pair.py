@@ -1,6 +1,6 @@
 import pathlib as pt
 from nibbler.optim.assets import Feed
-from nibbler.optim.assets import Pair
+from nibbler.optim.assets import Market
 
 if __name__ == "__main__":
 
@@ -16,14 +16,13 @@ if __name__ == "__main__":
     feed_1hr = Feed(csv_file_1hr)
     feed_4hr = Feed(csv_file_4hr)
 
-    pair =Pair("btc/usd")
+    pair = Market("btc/usd")
 
     pair.add_feed(feed_4hr)
     pair.add_feed(feed_1hr)
 
     for minutes, feed in pair.feed_list:
-        print(feed.nskip)
-        print(feed.max_len)
+        print(len(feed))
         print(feed.wait)
     
     print(len(pair))

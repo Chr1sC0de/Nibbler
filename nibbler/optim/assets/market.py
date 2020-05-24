@@ -10,12 +10,11 @@ timeframe_suffix_dict_ = dict(
     M=60*24*30,
 )
 
-
-class Pair:
+class Market:
 
     __slots__ = [
         "feed_list", "name", "delay",
-        "max_len", "iter_list", "nskip",
+        "max_len", "iter_list",
         "n", "wait", "counter", "start_time"
     ] 
 
@@ -24,13 +23,8 @@ class Pair:
         self.feed_list = []
         self.name = name
         self.delay = 0
-        self.max_len = 0
-        self.nskip = 0
         self.wait = 0
 
-    def __len__(self):
-
-        return self.max_len
 
     def add_feed(self, feed:Feed):
 
@@ -51,32 +45,44 @@ class Pair:
         # set the wait times based off the case with the lowest time scale
         if len(self.feed_list) > 0:
             minutes = self.feed_list[0][0]
-
             for item in self.feed_list:
                 wait_multiplier = item[0]/minutes
-                item[-1].wait = int(wait_multiplier)
+                waiting_time = int(wait_multiplier)
+                if waiting_time == 1:
+                    item[-1].wait = 0
+                else:
+                    item[-1].wait = waiting_time
+
+        # sen the length of the dataset
+        len(self)
+        # calculate the start time based off of the datafeeds
+        self.start_time = 1000000000
+        for _, feed in self.feed_list:
+            start = feed.data[0][0]
+            if start < self.start_time:
+                self.start_time = start
+        # align the start time for all datafeeds
+        for _, feed in self.feed_list:
+            datetime = feed.data[0]
+            difference = datetime[0] - self.start_time 
+            feed.data[0] -= difference
+    
+    def __len__(self):
         # find the maximum length of all the datasets
         self.max_len = 10000000000
         for (_, feed) in self.feed_list:
             if len(feed) < self.max_len:
                 self.max_len = len(feed)
-        # set the maximul length of all the datasets
+        # clip the original dataframes and return the new lengths
         for (_, feed) in self.feed_list:
-            feed.max_len = self.max_len
-        # set the nkip of all the sets
-        self.nskip = self.feed_list[0][-1].nskip 
-        for (_, feed) in self.feed_list:
-            feed.nskip = self.nskip/feed.wait
-        # calculate the start time based off of the datafeeds
-        start_time = 1000000000
-        for _, feed in self.feed_list:
-            start = feed.data[0][0]
-            if start < start_time:
-                self.start_time = start
+            feed.clip_dataframe(0, self.max_len)
+        return len(self.feed_list[0][1])
 
     def __iter__(self):
 
-        self.n = self.nskip
+        self.max_len = len(self)
+
+        self.n = 0
 
         self.counter = 0
 
@@ -102,4 +108,5 @@ class Pair:
                     timeframe, feed in self.iter_list
                 ]
             )
+
         return None

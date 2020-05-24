@@ -13,7 +13,7 @@ if __name__ == "__main__":
     csv_file_1hr = csv_files/"BitcoinBinance1hr.csv"
     csv_file_4hr = csv_files/"BitcoinBinance4hr.csv"
 
-    feed_1hr = Feed(csv_file_1hr, wait=1)
+    feed_1hr = Feed(csv_file_1hr, wait=0)
     feed_4hr = Feed(csv_file_4hr, wait=4)
 
     print(len(feed_1hr))
