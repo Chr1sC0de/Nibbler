@@ -44,11 +44,11 @@ class LongOnlyTrader(trade.Trader):
         self.ema1 = ema1
         self.ema2 = ema2
         self.ema3 = ema3
+        self.longMode = False
+        self.shortMode = False
 
     def getBalanceHistory(self):
         return np.array(self.balanceHistory)
-
-
 
     def strategy(self):
 
@@ -100,9 +100,10 @@ class LongOnlyTrader(trade.Trader):
                             self,  stop,quantity, leverage=leverage, reduceOnly=True)
                         btcMarket.limitSell(
                             self, quantity, target, leverage=leverage, reduceOnly=True)
+                        self.longMode = True
+                        self.shortMode = False
 
             if self.positions:
-
                 position = self.positions[btcMarket]
                 entry = position.entryPrice
                 quantity = position.quantity
@@ -189,7 +190,8 @@ class LongOnlyTrader(trade.Trader):
         return all([
             volume[-1] > volume[-2],
             volume[-1] > volume[-3],
-            volume[-2] > volume[-3],
+            volume[-1] > volume[-4],
+            volume[-2] > volume[-3]
         ])
 
     def priceAboveEma(self, feed, ema1, ema2, ema3):
@@ -197,6 +199,13 @@ class LongOnlyTrader(trade.Trader):
         return all([
             dopen[-1] > ema1[-1],
             close[-1] > ema1[-1]
+        ])
+
+    def priceBellowEma(self, feed, ema1, ema2, ema3):
+        _,dopen,_,_,close,_ = feed
+        return all([
+            dopen[-1] < ema1[-1],
+            close[-1] < ema1[-1]
         ])
 
     def closeAllPositions(self):
@@ -239,10 +248,6 @@ class LongOnlyTrader(trade.Trader):
                 btcFeeds[key][4,-self.clip:]
             )
         return atr
-
-
-
-
 
 
 if __name__ == "__main__":
