@@ -1,2 +1,0 @@
-from .savitzky_golay_max import SavitzkyGolayMax
-from .savitzky_golay_max_filtered_grads import SavitzkyGolayMaxFilteredGrads
