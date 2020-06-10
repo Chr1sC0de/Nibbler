@@ -1,0 +1,1 @@
+ffmpeg -framerate 5 -i %07d.png -c:v libx264 -crf 20  movie.mp4

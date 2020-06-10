@@ -4,5 +4,6 @@ from . import (
     collectors,
     math,
     signals,
-    optim
+    optim,
+    plot
 )

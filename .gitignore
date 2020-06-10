@@ -5,3 +5,6 @@ nibblerEnv/
 nibbler.egg-info/
 */__pycache__/
 *.pyc
+node_modules/
+*.png
+*.mp4

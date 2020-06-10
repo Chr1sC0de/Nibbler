@@ -22,7 +22,7 @@ class Collector(object):
     _time_frame_ms = None
     _time_delta = None
     allowed_timeframes = [
-        '1m', '5m', '1h','4h','1d'
+        '1m', '5m', '15m', '1h','4h','1d'
     ]
 
     def __init__(self, timeframe):

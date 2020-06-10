@@ -4,6 +4,8 @@ from .savgol import (
 )
 
 from .min_max_finder import (
-    find_max_from_gradients, find_min_from_gradients,
-    find_max_from_gradients_jit, find_min_from_gradients_jit
+    find_max_from_gradients, find_min_from_gradients
 )
+
+from .greatest_divisor import greatestDivisor
+from .make_odd import makeOdd

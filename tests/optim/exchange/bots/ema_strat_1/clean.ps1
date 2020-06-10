@@ -1,0 +1,1 @@
+remove-item .\movie\*.png

@@ -1,11 +1,19 @@
 from .SavgolFilter import SavitzkyGolayFilter
 import numpy as np
 
+
+def makeOdd(value: int):
+    if value%2 == 0:
+        return value + 1
+    return value
+
+
 class PolyfitSavgolFilter:
 
     __slots__ = ["filter", "pad", "polyorder"]
 
     def __init__(self, window_size, deriv=0, polyorder=2):
+        window_size = makeOdd(window_size)
         assert window_size % 2 != 0
         self.pad = (window_size - 1)//2
         self.polyorder = polyorder
@@ -35,6 +43,7 @@ class CausalSavgolFilter:
     __slots__ = ["filter", "pad", "polyorder"]
 
     def __init__(self, window_size, deriv=0, polyorder=2):
+        window_size = makeOdd(window_size)
         assert window_size % 2 != 0
         self.pad = window_size - 1 
         self.polyorder = polyorder
@@ -55,6 +64,7 @@ class ConstantPaddingSavgolFilter:
     __slots__ = ["filter", "pad", "polyorder"]
 
     def __init__(self, window_size, deriv=0, polyorder=3):
+        window_size = makeOdd(window_size)
         assert window_size % 2 != 0
         self.pad = (window_size - 1)//2
         self.polyorder = polyorder
