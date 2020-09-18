@@ -1,4 +1,5 @@
 _*/*
+_env
 .vscode/
 myconfig.py
 nibblerEnv/

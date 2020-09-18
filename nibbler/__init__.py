@@ -1,9 +1,9 @@
-from . import (
-    utils,
-    api,
-    collectors,
-    math,
-    signals,
-    optim,
-    plot
-)
+from . import collect
+from . import plt
+from . import utils
+from . import math
+from . import traders
+from . import feeds
+from . import markets
+from . import exchanges
+from . import api
