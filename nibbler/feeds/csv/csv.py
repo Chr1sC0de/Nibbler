@@ -1,9 +1,6 @@
 from ..feed import Feed
 import pathlib as pt
 import pandas as pd
-import numpy as np
-import abc
-
 
 class CSV(Feed):
 

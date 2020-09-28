@@ -5,7 +5,8 @@ from .. import ohlcv
 
 class OHLCV(CSV, ohlcv.OHLCV):
 
-    def _setdata(self):
+    def _set_data(self):
+
         self._data = np.stack(
             [
                 self._dataframe["datetime"],

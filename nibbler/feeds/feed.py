@@ -21,8 +21,8 @@ class Feed(abc.ABC):
         self._live     = np.zeros((1, 1))
         self.timedelta = None
         self.timeframe = None
-        self._setdata()
-        self._settimeframe()
+        self._set_data()
+        self._set_timeframe()
 
         self._market   = _NoneMarket()
         self._master   = None
@@ -39,37 +39,37 @@ class Feed(abc.ABC):
     def step(self):
         return next(self)
 
-    def setmaster(self, master: "Feed"):
+    def set_master(self, master: "Feed"):
         assert isinstance(master, Feed)
         self._master = master
-        master.setchild(self)
+        master.set_child(self)
 
-    def delmaster(self):
+    def del_master(self):
         if self in self._master._children:
             self._master._children.remove(self)
         self._master = None
 
-    def setchild(self, child: "Feed"):
+    def set_child(self, child: "Feed"):
         assert isinstance(child, self.__class__)
         if child not in self._children:
             self._children.append(child)
 
-    def delchild(self, child: "Feed"):
+    def del_child(self, child: "Feed"):
         if child in self._children:
-            child.delmaster()
+            child.del_master()
 
-    def delchildren(self):
+    def del_children(self):
         for child in self._children:
-            self.delchild(child)
+            self.del_child(child)
 
-    def setmarket(self, market: "Market"):
+    def set_market(self, market: "Market"):
         self._market = market
 
     @abc.abstractmethod
-    def _setdata(self):
+    def _set_data(self):
         NotImplemented
 
-    def _settimeframe(self):
+    def _set_timeframe(self):
         self.timedelta = int(self._data[0, 2] - self._data[0, 1])
         divisor        = greatestDivisor(self.timedelta, secondstotimeframe.keys())
         multiplier     = self.timedelta/divisor
@@ -89,7 +89,7 @@ class Feed(abc.ABC):
             if len(self._master.datetime):
                 latestdatetime = self._master.datetime[-1]
             else:
-                latestdatetime = self.startdatetime
+                latestdatetime = self.start_datetime
 
             ndatetime      = len(self.datetime) - 1
 
@@ -132,12 +132,12 @@ class Feed(abc.ABC):
         latesttime  = dt.datetime.fromtimestamp(self._live[0][-1]/1000)
         outpustring = "<%sFeed %s period:%s to %s "%(
             self.__class__.__name__, self._market.name, starttime, latesttime)
-        outpustring += self._objectdata()
+        outpustring += self._object_data()
         outpustring += ">"
         return outpustring
 
     @abc.abstractmethod
-    def _objectdata(self):
+    def _object_data(self):
         return ""
 
     @property
@@ -149,11 +149,11 @@ class Feed(abc.ABC):
         return self._live[0]
 
     @property
-    def currentdatetime(self):
+    def current_datetime(self):
         return self.datetime[-1]
 
     @property
-    def startdatetime(self):
+    def start_datetime(self):
         return self._data[0, 0]
 
     @abc.abstractmethod

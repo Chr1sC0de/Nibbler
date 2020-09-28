@@ -1,6 +1,7 @@
 import numpy as np
-from nibbler import plt
+from bokeh.plotting import figure, output_file, show
 from .feed import Feed
+from .. import utils
 
 
 _allnames = ["open", "high", "low", "close"]
@@ -8,22 +9,24 @@ _allnames = ["open", "high", "low", "close"]
 
 class OHLCV(Feed):
 
-    '''
-    Abstract base class for a feed which contains open high low close and
-    volume data
-    '''
-    # assign the tempdata in the constructor
-    _tempdata = None
 
-    def _setdata(self):
+    def __init__(self):
+        self._tempdata       = None
+        self._segments       = None
+        self._increment_bars = None
+        self._decrement_bars = None
+
+        super(OHLCV, self).__init__()
+
+    def _set_data(self):
         self._data = self._tempdata
 
-    def _objectdata(self):
+    def _object_data(self):
         outputString = "OHLCV: %0.3f/%0.3f/%0.3f/%0.3f/%0.3f"
         return outputString%(
-            self.currentopen, self.currenthigh,
-            self.currentlow, self.currentclose,
-            self.currentvolume
+            self.current_open, self.current_high,
+            self.current_low, self.current_close,
+            self.current_volume
         )
 
     @property
@@ -43,66 +46,104 @@ class OHLCV(Feed):
         return self._live[5]
 
     @property
-    def currentopen(self):
+    def current_open(self):
         return self.open[-1]
     @property
-    def currenthigh(self):
+    def current_high(self):
         return self.high[-1]
     @property
-    def currentlow(self):
+    def current_low(self):
         return self.low[-1]
     @property
-    def currentclose(self):
+    def current_close(self):
         return self.close[-1]
     @property
-    def currentvolume(self):
+    def current_volume(self):
         return self.volume[-1]
 
-    def plot_stream(
-        self, datastream,
-        ax=None, name=None,
-        color="r", alpha=1, linewidth=2,
-        **kwargs
+    def plot_candlesticks(
+        self,
+        p               = None,
+        plot_width      = 1000,
+        title           = None,
+        orientation     = np.pi/5,
+        grid_line_alpha = 0.3,
+        segment_color   = "black",
+        increment_color = "green",
+        decrement_color = "red",
+        bar_width       = 0.6,
+        n_bars          = "max",
+        tools           = "pan,wheel_zoom,xwheel_zoom,ywheel_zoom,box_zoom,reset,save"
     ):
-        if ax is None:
-            ax = plt.gca()
-        datetime = plt.utils.convertTimestampToDatetime(
-            self.datetime)
-        ax.plot_date(
-            datetime, datastream,
-            "-",
-            color     = color,
-            linewidth = linewidth,
-            **kwargs
-        )
-        return ax
 
-    def plot(
-        self, ax=None, vax=None, feednames=None, showvolume=True,
-        tailwidth = 1.0, bodywidth=1.5, ylabel="Price",
-        c_open="g", c_close="r", c_highlow="k",
-        alpha_tail=0.6,
-        **kwargs
-    ):
-        if ax is None:
-            ax = plt.gca()
+        if p is None:
+            p = figure(
+                x_axis_type = "datetime",
+                tools       = tools,
+                plot_width  = plot_width,
+                title       = title
+            )
+            p.xaxis.major_label_orientation = orientation
+            p.grid.grid_line_alpha          = grid_line_alpha
 
-        if feednames is None:
-            feednames = _allnames
+        datetime       = utils.timeframeconversion.timestamp_to_datetime(self.datetime)
+        datetime_width = np.gradient(self.datetime)*bar_width
+
+        if n_bars == "max":
+            d_open  = self.open
+            d_high  = self.high
+            d_low   = self.low
+            d_close = self.close
         else:
-            for name in feednames:
-                assert name in _allnames, f"feeds names must be in {_allnames}"
-        datetime = plt.utils.convertTimestampToDatetime(self.datetime)
-        ax.plot_date(datetime, self.open, c_open, **kwargs)
-        ax.plot_date(datetime, self.close, c_close, **kwargs)
-        kwargs.pop("alpha", None)
-        ax.plot_date(
-            datetime, self.high, c_highlow, alpha=alpha_tail, **kwargs)
-        ax.plot_date(
-            datetime, self.low, c_highlow, alpha=alpha_tail, **kwargs)
-        if showvolume:
-            if vax is not None:
-                plt.volumeOnScreen(self, ax=vax)
-                return ax
-            ax = plt.volumeOnScreen(self, ax=ax)
-        return ax
+            n_bars         = np.clip(n_bars, 2, len(self.open))
+            d_open         = self.open[-n_bars:]
+            d_high         = self.high[-n_bars:]
+            d_low          = self.low[-n_bars:]
+            d_close        = self.close[-n_bars:]
+            datetime       = datetime[-n_bars:]
+            datetime_width = datetime_width[-n_bars:]
+
+        incr = d_close > d_open
+        decr = d_close < d_open
+
+        self._segments       = p.segment(
+            datetime, d_high, datetime, d_low, color=segment_color)
+
+        self._increment_bars = p.vbar(
+            datetime[incr], datetime_width[incr], d_open[incr], d_close[incr],
+            fill_color = increment_color,
+            line_color = "black"
+        )
+        self._decrement_bars = p.vbar(
+            datetime[decr], datetime_width[decr], d_open[decr], d_close[decr],
+            fill_color = decrement_color,
+            line_color = "black"
+        )
+        return p
+
+    def plot_volume(
+        self,
+        p               = None,
+        plot_width      = 1000,
+        title           = None,
+        orientation     = np.pi/5,
+        grid_line_alpha = 0.3,
+        segment_color   = "black",
+        increment_color = "green",
+        decrement_color = "red",
+        bar_width       = 0.6,
+        n_bars          = "max",
+        tools           = "pan,wheel_zoom,xwheel_zoom,ywheel_zoom,box_zoom,reset,save"
+    ):
+        if p is None:
+            p = figure(
+                x_axis_type = "datetime",
+                tools       = tools,
+                plot_width  = plot_width,
+                title       = title
+            )
+            p.xaxis.major_label_orientation = orientation
+            p.grid.grid_line_alpha          = grid_line_alpha
+
+    def plot(self, p):
+        pass
