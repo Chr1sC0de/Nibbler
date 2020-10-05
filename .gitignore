@@ -2,7 +2,7 @@ _*/*
 _env
 .vscode/
 myconfig.py
-design_docs
+design_docs/
 nibblerEnv/
 nibbler.egg-info/
 */__pycache__/
