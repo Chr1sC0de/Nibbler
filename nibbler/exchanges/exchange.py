@@ -14,7 +14,12 @@ class Exchange:
     futures_maker_fee = 0.0002
     futures_taker_fee = 0.0004
 
-    def __init__(self, name):
+    def __init__(self, name: str):
+        """Exchange class
+
+        Args:
+            name (str):  name of exchange
+        """
         self.name            = name
         self.spot_markets    = OrderedDict()
         self.futures_markets = OrderedDict()
