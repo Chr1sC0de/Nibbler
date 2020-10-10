@@ -8,7 +8,7 @@ from uuid import uuid1
 from typing import List
 
 from ..utils import timeframeconversion
-from ..feeds import Feed, csv
+from ..feeds import Feed, csv, OHLCV
 
 
 class Market(abc.ABC):
@@ -91,23 +91,23 @@ class Market(abc.ABC):
             if feed.__class__.__name__ == "OHLCV":
                 self.feeds_ohlcv[feed.timeframe] = feed
 
-    def add_orders(self, *orders: "Order"):
-        for order in orders:
-            order_dictionary = self.orders[order.trader]
-            order_id = len(order_dictionary)
-            while order_id in order_dictionary.keys():
-                order_id += 1
-            order_dictionary[order_id] = order
-            order.id = order_id
+    # def add_orders(self, *orders: "Order"):
+    #     for order in orders:
+    #         order_dictionary = self.orders[order.trader]
+    #         order_id = len(order_dictionary)
+    #         while order_id in order_dictionary.keys():
+    #             order_id += 1
+    #         order_dictionary[order_id] = order
+    #         order.id = order_id
 
-    def add_stops(self, *stops: "Stop"):
-        for stop in stops:
-            stop_dictionary = self.stops[stop.trader]
-            stop_id         = len(stop_dictionary)
-            while stop_id in stop_dictionary.keys():
-                stop_id += 1
-            stop_dictionary[stop_id] = stop
-            stop.id = stop_id
+    # def add_stops(self, *stops: "Stop"):
+    #     for stop in stops:
+    #         stop_dictionary = self.stops[stop.trader]
+    #         stop_id         = len(stop_dictionary)
+    #         while stop_id in stop_dictionary.keys():
+    #             stop_id += 1
+    #         stop_dictionary[stop_id] = stop
+    #         stop.id = stop_id
 
     def inititialize(self):
         return iter(self)
@@ -147,11 +147,11 @@ class Market(abc.ABC):
         return len(self.master_feed)
 
     @property
-    def master_feed(self):
+    def master_feed(self) -> Feed:
         return self.feeds[self.master_key]
 
     @property
-    def master_feed_ohlcv(self):
+    def master_feed_ohlcv(self) -> OHLCV:
         return self.feeds_ohlcv[self.smallest_time_delta]
 
     @property
@@ -265,6 +265,8 @@ class Futures(Market):
         '''
             futures markets funding rates have yet to be implemented
         '''
+        assert args[0] != "USDT", "Cannot trade USDT with USDT"
+        assert args[1] == "USDT", "Futures only support USDT pair"
         super(Futures, self).__init__(*args, **kwargs)
         self.max_leverage = max_leverage
         self.positions    = OrderedDict()

@@ -21,7 +21,7 @@ class Collector(object):
     _time_frame_ms = None
     _time_delta = None
 
-    headers = ["datetime", "open", "high", "low", "close", "volume"] 
+    headers = ["datetime", "open", "high", "low", "close", "volume"]
 
     def __init__(self, timeframe):
         assert self.symbol is not None

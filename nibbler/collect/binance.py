@@ -3146,6 +3146,10 @@ class SOLBTC(_Meta):
     symbol = "SOL/BTC"
 
 
+class SOLUSDT(_Meta):
+    symbol = "SOL/USDT"
+
+
 class SOLBUSD(_Meta):
     symbol = "SOL/BUSD"
 
@@ -3258,3 +3262,1085 @@ class MDTUSDT(_Meta):
     symbol = "MDT/USDT"
 
 
+class STMXBNB(_Meta):
+    symbol = "STMX/BNB"
+
+
+class STMXBTC(_Meta):
+    symbol = "STMX/BTC"
+
+
+class STMXETH(_Meta):
+    symbol = "STMX/ETH"
+
+
+class STMXUSDT(_Meta):
+    symbol = "STMX/USDT"
+
+
+class KNCBUSD(_Meta):
+    symbol = "KNC/BUSD"
+
+
+class KNCUSDT(_Meta):
+    symbol = "KNC/USDT"
+
+
+class REPBUSD(_Meta):
+    symbol = "REP/BUSD"
+
+
+class REPUSDT(_Meta):
+    symbol = "REP/USDT"
+
+
+class LRCBUSD(_Meta):
+    symbol = "LRC/BUSD"
+
+
+class LRCUSDT(_Meta):
+    symbol = "LRC/USDT"
+
+
+class IQBNB(_Meta):
+    symbol = "IQ/BNB"
+
+
+class IQBUSD(_Meta):
+    symbol = "IQ/BUSD"
+
+
+class PNTBTC(_Meta):
+    symbol = "PNT/BTC"
+
+
+class PNTUSDT(_Meta):
+    symbol = "PNT/USDT"
+
+
+class BTCGBP(_Meta):
+    symbol = "BTC/GBP"
+
+
+class ETHGBP(_Meta):
+    symbol = "ETH/GBP"
+
+
+class XRPGBP(_Meta):
+    symbol = "XRP/GBP"
+
+
+class BNBGBP(_Meta):
+    symbol = "BNB/GBP"
+
+
+class GBPBUSD(_Meta):
+    symbol = "GBP/BUSD"
+
+
+class DGBBNB(_Meta):
+    symbol = "DGB/BNB"
+
+
+class DGBBTC(_Meta):
+    symbol = "DGB/BTC"
+
+
+class DGBBUSD(_Meta):
+    symbol = "DGB/BUSD"
+
+
+class BTCUAH(_Meta):
+    symbol = "BTC/UAH"
+
+
+class USDTUAH(_Meta):
+    symbol = "USDT/UAH"
+
+
+class COMPBTC(_Meta):
+    symbol = "COMP/BTC"
+
+
+class COMPBNB(_Meta):
+    symbol = "COMP/BNB"
+
+
+class COMPBUSD(_Meta):
+    symbol = "COMP/BUSD"
+
+
+class COMPUSDT(_Meta):
+    symbol = "COMP/USDT"
+
+
+class BTCBIDR(_Meta):
+    symbol = "BTC/BIDR"
+
+
+class ETHBIDR(_Meta):
+    symbol = "ETH/BIDR"
+
+
+class BNBBIDR(_Meta):
+    symbol = "BNB/BIDR"
+
+
+class BUSDBIDR(_Meta):
+    symbol = "BUSD/BIDR"
+
+
+class USDTBIDR(_Meta):
+    symbol = "USDT/BIDR"
+
+
+class BKRWUSDT(_Meta):
+    symbol = "BKRW/USDT"
+
+
+class BKRWBUSD(_Meta):
+    symbol = "BKRW/BUSD"
+
+
+class SCUSDT(_Meta):
+    symbol = "SC/USDT"
+
+
+class ZENUSDT(_Meta):
+    symbol = "ZEN/USDT"
+
+
+class SXPBTC(_Meta):
+    symbol = "SXP/BTC"
+
+
+class SXPBNB(_Meta):
+    symbol = "SXP/BNB"
+
+
+class SXPBUSD(_Meta):
+    symbol = "SXP/BUSD"
+
+
+class SNXBTC(_Meta):
+    symbol = "SNX/BTC"
+
+
+class SNXBNB(_Meta):
+    symbol = "SNX/BNB"
+
+
+class SNXBUSD(_Meta):
+    symbol = "SNX/BUSD"
+
+
+class SNXUSDT(_Meta):
+    symbol = "SNX/USDT"
+
+
+class ETHUPUSDT(_Meta):
+    symbol = "ETHUP/USDT"
+
+
+class ETHDOWNUSDT(_Meta):
+    symbol = "ETHDOWN/USDT"
+
+
+class ADAUPUSDT(_Meta):
+    symbol = "ADAUP/USDT"
+
+
+class ADADOWNUSDT(_Meta):
+    symbol = "ADADOWN/USDT"
+
+
+class LINKUPUSDT(_Meta):
+    symbol = "LINKUP/USDT"
+
+
+class LINKDOWNUSDT(_Meta):
+    symbol = "LINKDOWN/USDT"
+
+
+class VTHOBNB(_Meta):
+    symbol = "VTHO/BNB"
+
+
+class VTHOBUSD(_Meta):
+    symbol = "VTHO/BUSD"
+
+
+class VTHOUSDT(_Meta):
+    symbol = "VTHO/USDT"
+
+
+class DCRBUSD(_Meta):
+    symbol = "DCR/BUSD"
+
+
+class DGBUSDT(_Meta):
+    symbol = "DGB/USDT"
+
+
+class GBPUSDT(_Meta):
+    symbol = "GBP/USDT"
+
+
+class STORJBUSD(_Meta):
+    symbol = "STORJ/BUSD"
+
+
+class SXPUSDT(_Meta):
+    symbol = "SXP/USDT"
+
+
+class IRISBNB(_Meta):
+    symbol = "IRIS/BNB"
+
+
+class IRISBTC(_Meta):
+    symbol = "IRIS/BTC"
+
+
+class IRISBUSD(_Meta):
+    symbol = "IRIS/BUSD"
+
+
+class MKRBNB(_Meta):
+    symbol = "MKR/BNB"
+
+
+class MKRBTC(_Meta):
+    symbol = "MKR/BTC"
+
+
+class MKRUSDT(_Meta):
+    symbol = "MKR/USDT"
+
+
+class MKRBUSD(_Meta):
+    symbol = "MKR/BUSD"
+
+
+class DAIBNB(_Meta):
+    symbol = "DAI/BNB"
+
+
+class DAIBTC(_Meta):
+    symbol = "DAI/BTC"
+
+
+class DAIUSDT(_Meta):
+    symbol = "DAI/USDT"
+
+
+class DAIBUSD(_Meta):
+    symbol = "DAI/BUSD"
+
+
+class RUNEBNB(_Meta):
+    symbol = "RUNE/BNB"
+
+
+class RUNEBTC(_Meta):
+    symbol = "RUNE/BTC"
+
+
+class RUNEBUSD(_Meta):
+    symbol = "RUNE/BUSD"
+
+
+class MANABUSD(_Meta):
+    symbol = "MANA/BUSD"
+
+
+class DOGEBUSD(_Meta):
+    symbol = "DOGE/BUSD"
+
+
+class LENDBUSD(_Meta):
+    symbol = "LEND/BUSD"
+
+
+class ZRXBUSD(_Meta):
+    symbol = "ZRX/BUSD"
+
+
+class DCRUSDT(_Meta):
+    symbol = "DCR/USDT"
+
+
+class STORJUSDT(_Meta):
+    symbol = "STORJ/USDT"
+
+
+class XRPBKRW(_Meta):
+    symbol = "XRP/BKRW"
+
+
+class ADABKRW(_Meta):
+    symbol = "ADA/BKRW"
+
+
+class BTCAUD(_Meta):
+    symbol = "BTC/AUD"
+
+
+class ETHAUD(_Meta):
+    symbol = "ETH/AUD"
+
+
+class AUDBUSD(_Meta):
+    symbol = "AUD/BUSD"
+
+
+class FIOBNB(_Meta):
+    symbol = "FIO/BNB"
+
+
+class FIOBTC(_Meta):
+    symbol = "FIO/BTC"
+
+
+class FIOBUSD(_Meta):
+    symbol = "FIO/BUSD"
+
+
+class BNBUPUSDT(_Meta):
+    symbol = "BNBUP/USDT"
+
+
+class BNBDOWNUSDT(_Meta):
+    symbol = "BNBDOWN/USDT"
+
+
+class XTZUPUSDT(_Meta):
+    symbol = "XTZUP/USDT"
+
+
+class XTZDOWNUSDT(_Meta):
+    symbol = "XTZDOWN/USDT"
+
+
+class AVABNB(_Meta):
+    symbol = "AVA/BNB"
+
+
+class AVABTC(_Meta):
+    symbol = "AVA/BTC"
+
+
+class AVABUSD(_Meta):
+    symbol = "AVA/BUSD"
+
+
+class USDTBKRW(_Meta):
+    symbol = "USDT/BKRW"
+
+
+class BUSDBKRW(_Meta):
+    symbol = "BUSD/BKRW"
+
+
+class IOTABUSD(_Meta):
+    symbol = "IOTA/BUSD"
+
+
+class MANAUSDT(_Meta):
+    symbol = "MANA/USDT"
+
+
+class XRPAUD(_Meta):
+    symbol = "XRP/AUD"
+
+
+class BNBAUD(_Meta):
+    symbol = "BNB/AUD"
+
+
+class AUDUSDT(_Meta):
+    symbol = "AUD/USDT"
+
+
+class BALBNB(_Meta):
+    symbol = "BAL/BNB"
+
+
+class BALBTC(_Meta):
+    symbol = "BAL/BTC"
+
+
+class BALBUSD(_Meta):
+    symbol = "BAL/BUSD"
+
+
+class YFIBNB(_Meta):
+    symbol = "YFI/BNB"
+
+
+class YFIBTC(_Meta):
+    symbol = "YFI/BTC"
+
+
+class YFIBUSD(_Meta):
+    symbol = "YFI/BUSD"
+
+
+class YFIUSDT(_Meta):
+    symbol = "YFI/USDT"
+
+
+class BLZBUSD(_Meta):
+    symbol = "BLZ/BUSD"
+
+
+class KMDBUSD(_Meta):
+    symbol = "KMD/BUSD"
+
+
+class BALUSDT(_Meta):
+    symbol = "BAL/USDT"
+
+
+class BLZUSDT(_Meta):
+    symbol = "BLZ/USDT"
+
+
+class IRISUSDT(_Meta):
+    symbol = "IRIS/USDT"
+
+
+class KMDUSDT(_Meta):
+    symbol = "KMD/USDT"
+
+
+class BTCDAI(_Meta):
+    symbol = "BTC/DAI"
+
+
+class ETHDAI(_Meta):
+    symbol = "ETH/DAI"
+
+
+class BNBDAI(_Meta):
+    symbol = "BNB/DAI"
+
+
+class USDTDAI(_Meta):
+    symbol = "USDT/DAI"
+
+
+class BUSDDAI(_Meta):
+    symbol = "BUSD/DAI"
+
+
+class JSTBNB(_Meta):
+    symbol = "JST/BNB"
+
+
+class JSTBTC(_Meta):
+    symbol = "JST/BTC"
+
+
+class JSTBUSD(_Meta):
+    symbol = "JST/BUSD"
+
+
+class JSTUSDT(_Meta):
+    symbol = "JST/USDT"
+
+
+class SRMBNB(_Meta):
+    symbol = "SRM/BNB"
+
+
+class SRMBTC(_Meta):
+    symbol = "SRM/BTC"
+
+
+class SRMBUSD(_Meta):
+    symbol = "SRM/BUSD"
+
+
+class SRMUSDT(_Meta):
+    symbol = "SRM/USDT"
+
+
+class ANTBNB(_Meta):
+    symbol = "ANT/BNB"
+
+
+class ANTBTC(_Meta):
+    symbol = "ANT/BTC"
+
+
+class ANTBUSD(_Meta):
+    symbol = "ANT/BUSD"
+
+
+class ANTUSDT(_Meta):
+    symbol = "ANT/USDT"
+
+
+class CRVBNB(_Meta):
+    symbol = "CRV/BNB"
+
+
+class CRVBTC(_Meta):
+    symbol = "CRV/BTC"
+
+
+class CRVBUSD(_Meta):
+    symbol = "CRV/BUSD"
+
+
+class CRVUSDT(_Meta):
+    symbol = "CRV/USDT"
+
+
+class SANDBNB(_Meta):
+    symbol = "SAND/BNB"
+
+
+class SANDBTC(_Meta):
+    symbol = "SAND/BTC"
+
+
+class SANDUSDT(_Meta):
+    symbol = "SAND/USDT"
+
+
+class SANDBUSD(_Meta):
+    symbol = "SAND/BUSD"
+
+
+class OCEANBNB(_Meta):
+    symbol = "OCEAN/BNB"
+
+
+class OCEANBTC(_Meta):
+    symbol = "OCEAN/BTC"
+
+
+class OCEANBUSD(_Meta):
+    symbol = "OCEAN/BUSD"
+
+
+class OCEANUSDT(_Meta):
+    symbol = "OCEAN/USDT"
+
+
+class NMRBNB(_Meta):
+    symbol = "NMR/BNB"
+
+
+class NMRBTC(_Meta):
+    symbol = "NMR/BTC"
+
+
+class NMRBUSD(_Meta):
+    symbol = "NMR/BUSD"
+
+
+class NMRUSDT(_Meta):
+    symbol = "NMR/USDT"
+
+
+class DOTBNB(_Meta):
+    symbol = "DOT/BNB"
+
+
+class DOTBTC(_Meta):
+    symbol = "DOT/BTC"
+
+
+class DOTBUSD(_Meta):
+    symbol = "DOT/BUSD"
+
+
+class DOTUSDT(_Meta):
+    symbol = "DOT/USDT"
+
+
+class LUNABNB(_Meta):
+    symbol = "LUNA/BNB"
+
+
+class LUNABTC(_Meta):
+    symbol = "LUNA/BTC"
+
+
+class LUNABUSD(_Meta):
+    symbol = "LUNA/BUSD"
+
+
+class LUNAUSDT(_Meta):
+    symbol = "LUNA/USDT"
+
+
+class IDEXBTC(_Meta):
+    symbol = "IDEX/BTC"
+
+
+class IDEXBUSD(_Meta):
+    symbol = "IDEX/BUSD"
+
+
+class RSRBNB(_Meta):
+    symbol = "RSR/BNB"
+
+
+class RSRBTC(_Meta):
+    symbol = "RSR/BTC"
+
+
+class RSRBUSD(_Meta):
+    symbol = "RSR/BUSD"
+
+
+class RSRUSDT(_Meta):
+    symbol = "RSR/USDT"
+
+
+class PAXGBNB(_Meta):
+    symbol = "PAXG/BNB"
+
+
+class PAXGBTC(_Meta):
+    symbol = "PAXG/BTC"
+
+
+class PAXGBUSD(_Meta):
+    symbol = "PAXG/BUSD"
+
+
+class PAXGUSDT(_Meta):
+    symbol = "PAXG/USDT"
+
+
+class WNXMBNB(_Meta):
+    symbol = "WNXM/BNB"
+
+
+class WNXMBTC(_Meta):
+    symbol = "WNXM/BTC"
+
+
+class WNXMBUSD(_Meta):
+    symbol = "WNXM/BUSD"
+
+
+class WNXMUSDT(_Meta):
+    symbol = "WNXM/USDT"
+
+
+class TRBBNB(_Meta):
+    symbol = "TRB/BNB"
+
+
+class TRBBTC(_Meta):
+    symbol = "TRB/BTC"
+
+
+class TRBBUSD(_Meta):
+    symbol = "TRB/BUSD"
+
+
+class TRBUSDT(_Meta):
+    symbol = "TRB/USDT"
+
+
+class ETHNGN(_Meta):
+    symbol = "ETH/NGN"
+
+
+class DOTBIDR(_Meta):
+    symbol = "DOT/BIDR"
+
+
+class LINKAUD(_Meta):
+    symbol = "LINK/AUD"
+
+
+class SXPAUD(_Meta):
+    symbol = "SXP/AUD"
+
+
+class BZRXBNB(_Meta):
+    symbol = "BZRX/BNB"
+
+
+class BZRXBTC(_Meta):
+    symbol = "BZRX/BTC"
+
+
+class BZRXBUSD(_Meta):
+    symbol = "BZRX/BUSD"
+
+
+class BZRXUSDT(_Meta):
+    symbol = "BZRX/USDT"
+
+
+class WBTCBTC(_Meta):
+    symbol = "WBTC/BTC"
+
+
+class WBTCETH(_Meta):
+    symbol = "WBTC/ETH"
+
+
+class SUSHIBNB(_Meta):
+    symbol = "SUSHI/BNB"
+
+
+class SUSHIBTC(_Meta):
+    symbol = "SUSHI/BTC"
+
+
+class SUSHIBUSD(_Meta):
+    symbol = "SUSHI/BUSD"
+
+
+class SUSHIUSDT(_Meta):
+    symbol = "SUSHI/USDT"
+
+
+class YFIIBNB(_Meta):
+    symbol = "YFII/BNB"
+
+
+class YFIIBTC(_Meta):
+    symbol = "YFII/BTC"
+
+
+class YFIIBUSD(_Meta):
+    symbol = "YFII/BUSD"
+
+
+class YFIIUSDT(_Meta):
+    symbol = "YFII/USDT"
+
+
+class KSMBNB(_Meta):
+    symbol = "KSM/BNB"
+
+
+class KSMBTC(_Meta):
+    symbol = "KSM/BTC"
+
+
+class KSMBUSD(_Meta):
+    symbol = "KSM/BUSD"
+
+
+class KSMUSDT(_Meta):
+    symbol = "KSM/USDT"
+
+
+class EGLDBNB(_Meta):
+    symbol = "EGLD/BNB"
+
+
+class EGLDBTC(_Meta):
+    symbol = "EGLD/BTC"
+
+
+class EGLDBUSD(_Meta):
+    symbol = "EGLD/BUSD"
+
+
+class EGLDUSDT(_Meta):
+    symbol = "EGLD/USDT"
+
+
+class DIABNB(_Meta):
+    symbol = "DIA/BNB"
+
+
+class DIABTC(_Meta):
+    symbol = "DIA/BTC"
+
+
+class DIABUSD(_Meta):
+    symbol = "DIA/BUSD"
+
+
+class DIAUSDT(_Meta):
+    symbol = "DIA/USDT"
+
+
+class RUNEUSDT(_Meta):
+    symbol = "RUNE/USDT"
+
+
+class FIOUSDT(_Meta):
+    symbol = "FIO/USDT"
+
+
+class UMABTC(_Meta):
+    symbol = "UMA/BTC"
+
+
+class UMAUSDT(_Meta):
+    symbol = "UMA/USDT"
+
+
+class EOSUPUSDT(_Meta):
+    symbol = "EOSUP/USDT"
+
+
+class EOSDOWNUSDT(_Meta):
+    symbol = "EOSDOWN/USDT"
+
+
+class TRXUPUSDT(_Meta):
+    symbol = "TRXUP/USDT"
+
+
+class TRXDOWNUSDT(_Meta):
+    symbol = "TRXDOWN/USDT"
+
+
+class XRPUPUSDT(_Meta):
+    symbol = "XRPUP/USDT"
+
+
+class XRPDOWNUSDT(_Meta):
+    symbol = "XRPDOWN/USDT"
+
+
+class DOTUPUSDT(_Meta):
+    symbol = "DOTUP/USDT"
+
+
+class DOTDOWNUSDT(_Meta):
+    symbol = "DOTDOWN/USDT"
+
+
+class SRMBIDR(_Meta):
+    symbol = "SRM/BIDR"
+
+
+class ONEBIDR(_Meta):
+    symbol = "ONE/BIDR"
+
+
+class LINKTRY(_Meta):
+    symbol = "LINK/TRY"
+
+
+class USDTNGN(_Meta):
+    symbol = "USDT/NGN"
+
+
+class BELBNB(_Meta):
+    symbol = "BEL/BNB"
+
+
+class BELBTC(_Meta):
+    symbol = "BEL/BTC"
+
+
+class BELBUSD(_Meta):
+    symbol = "BEL/BUSD"
+
+
+class BELUSDT(_Meta):
+    symbol = "BEL/USDT"
+
+
+class WINGBNB(_Meta):
+    symbol = "WING/BNB"
+
+
+class WINGBTC(_Meta):
+    symbol = "WING/BTC"
+
+
+class SWRVBNB(_Meta):
+    symbol = "SWRV/BNB"
+
+
+class SWRVBUSD(_Meta):
+    symbol = "SWRV/BUSD"
+
+
+class WINGBUSD(_Meta):
+    symbol = "WING/BUSD"
+
+
+class WINGUSDT(_Meta):
+    symbol = "WING/USDT"
+
+
+class LTCUPUSDT(_Meta):
+    symbol = "LTCUP/USDT"
+
+
+class LTCDOWNUSDT(_Meta):
+    symbol = "LTCDOWN/USDT"
+
+
+class LENDBKRW(_Meta):
+    symbol = "LEND/BKRW"
+
+
+class SXPEUR(_Meta):
+    symbol = "SXP/EUR"
+
+
+class CREAMBNB(_Meta):
+    symbol = "CREAM/BNB"
+
+
+class CREAMBUSD(_Meta):
+    symbol = "CREAM/BUSD"
+
+
+class UNIBNB(_Meta):
+    symbol = "UNI/BNB"
+
+
+class UNIBTC(_Meta):
+    symbol = "UNI/BTC"
+
+
+class UNIBUSD(_Meta):
+    symbol = "UNI/BUSD"
+
+
+class UNIUSDT(_Meta):
+    symbol = "UNI/USDT"
+
+
+class NBSBTC(_Meta):
+    symbol = "NBS/BTC"
+
+
+class NBSUSDT(_Meta):
+    symbol = "NBS/USDT"
+
+
+class OXTBTC(_Meta):
+    symbol = "OXT/BTC"
+
+
+class OXTUSDT(_Meta):
+    symbol = "OXT/USDT"
+
+
+class SUNBTC(_Meta):
+    symbol = "SUN/BTC"
+
+
+class SUNUSDT(_Meta):
+    symbol = "SUN/USDT"
+
+
+class AVAXBNB(_Meta):
+    symbol = "AVAX/BNB"
+
+
+class AVAXBTC(_Meta):
+    symbol = "AVAX/BTC"
+
+
+class AVAXBUSD(_Meta):
+    symbol = "AVAX/BUSD"
+
+
+class AVAXUSDT(_Meta):
+    symbol = "AVAX/USDT"
+
+
+class HNTBTC(_Meta):
+    symbol = "HNT/BTC"
+
+
+class HNTUSDT(_Meta):
+    symbol = "HNT/USDT"
+
+
+class BAKEBNB(_Meta):
+    symbol = "BAKE/BNB"
+
+
+class BURGERBNB(_Meta):
+    symbol = "BURGER/BNB"
+
+
+class SXPBIDR(_Meta):
+    symbol = "SXP/BIDR"
+
+
+class LINKBKRW(_Meta):
+    symbol = "LINK/BKRW"
+
+
+class FLMBNB(_Meta):
+    symbol = "FLM/BNB"
+
+
+class FLMBTC(_Meta):
+    symbol = "FLM/BTC"
+
+
+class FLMBUSD(_Meta):
+    symbol = "FLM/BUSD"
+
+
+class FLMUSDT(_Meta):
+    symbol = "FLM/USDT"
+
+
+class SCRTBTC(_Meta):
+    symbol = "SCRT/BTC"
+
+
+class SCRTETH(_Meta):
+    symbol = "SCRT/ETH"
+
+
+class CAKEBNB(_Meta):
+    symbol = "CAKE/BNB"
+
+
+class CAKEBUSD(_Meta):
+    symbol = "CAKE/BUSD"
+
+
+class SPARTABNB(_Meta):
+    symbol = "SPARTA/BNB"
+
+
+class UNIUPUSDT(_Meta):
+    symbol = "UNIUP/USDT"
+
+
+class UNIDOWNUSDT(_Meta):
+    symbol = "UNIDOWN/USDT"
+
+
+class ORNBTC(_Meta):
+    symbol = "ORN/BTC"
+
+
+class ORNUSDT(_Meta):
+    symbol = "ORN/USDT"
+
+
+class TRXNGN(_Meta):
+    symbol = "TRX/NGN"
+
+
+class SXPTRY(_Meta):
+    symbol = "SXP/TRY"
+
+
+class UTKBTC(_Meta):
+    symbol = "UTK/BTC"
+
+
+class UTKUSDT(_Meta):
+    symbol = "UTK/USDT"
