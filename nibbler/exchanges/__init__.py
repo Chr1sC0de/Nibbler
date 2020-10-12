@@ -1,1 +1,4 @@
-from .exchange import Exchange
+from .exchange import (
+    Exchange, Wallet, SpotWallet, FuturesWallet, 
+    FuturesUSDTWallet, Account
+)

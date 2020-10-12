@@ -5,16 +5,12 @@ import abc
 
 class TradingInterface(abc.ABC):
 
-    def __init__(self, market_name: str, exchange: Exchange, account: Exchange.Account):
+    def __init__(self, market: Market, exchange: Exchange, account: Exchange.Account):
         self.exchange = exchange
         self.account  = account
-        self.market   = self.get_market(market_name)
+        self.market   = market
         assert account.id in exchange.accounts.keys(), \
             "trading account not registered to exchange"
-
-    @abc.abstractmethod
-    def get_market(self, market_name:str) -> Market:
-        NotImplemented
 
     @abc.abstractmethod
     def limit_buy(self, price, amount, *args, **kwargs):
@@ -43,7 +39,6 @@ class TradingInterface(abc.ABC):
 
 class SpotTrading(TradingInterface):
 
-    def get_market(self, market_name:str) -> Spot:
-        assert market_name in self.exchange.spot_markets.keys(), \
-            f"{market_name} is not a spot market"
-        return self.exchange.spot_markets[market_name]
+    def __init__(self, market: Spot, exchange: Exchange, account: Exchange.Account):
+        assert isinstance(market, Spot), "input market is not a spot market
+        super().__init__(market, exchange, account

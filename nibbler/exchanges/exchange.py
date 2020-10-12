@@ -6,6 +6,124 @@ from ..markets import Market
 from  .. import markets as mk
 
 
+class Wallet(abc.ABC):
+
+    repr_decimals = 3
+
+    def __init__(self, asset_name: str):
+        """Base class for asset wallets
+
+        Args:
+            asset_name (str): name of asset i.e. "BTCUSDT", will be automatically
+            capitalize.
+        """
+        self.asset   = asset_name.upper()
+        self.balance = 0
+
+    @abc.abstractproperty
+    def kind(self):
+        return NotImplmented
+
+    def fund(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        assert amount <= self.balance, "insufficient funds"
+        self.balance -= amount
+        return amount
+
+    def __repr__(self):
+        template = \
+            f"%sWallet asset=%s balance=%0.{self.repr_decimals}f"
+        return template%(self.kind, self.asset, self.balance)
+
+
+class SpotWallet(Wallet):
+    kind = "spot"
+
+
+class FuturesWallet(Wallet):
+    kind = "futures"
+
+    def __init__(self, asset_name: str):
+        self.entry_price = None
+        self.leverage    = None
+        super().__init__(asset_name)
+
+    def set_entry_price(
+        self, amount: float, entry_price: float
+    ):
+        if self.entry_price is None:
+            self.entry_price = entry_price
+        else:
+            self.entry_price = (
+                self.entry_price * self.balance +
+                entry_price * amount
+            )/(self.balance + amount)
+    
+    def set_leverage(self, amount: float, leverage: float):
+        if self.leverage == None:
+            self.leverage = leverage
+        else:
+            self.leverage = (
+                self.leverage * self.balance +
+                leverage * amount
+            )/(self.balance + amount)
+        
+    def fund(
+        self, amount, entry_price, leverage
+    ):
+        if self.balance == 0:
+            self.entry_price = None
+            self.leverage    = None
+        self.set_entry_price(amount, entry_price) 
+        self.set_leverage(amount, leverage) 
+        self.balance += amount
+
+    def is_liquidated(self):
+        return False
+
+
+class FuturesUSDTWallet(Wallet):
+    kind = "futures"
+
+    def __init__(self):
+        super().__init__("USDT")
+
+    def fund(self, amount):
+        self.balance += amount
+
+    def is_liquidated(self):
+        return False
+
+
+class Account:
+
+    def __init__(self, exchange: "Exchange"):
+        """Base class for a user account
+
+        Args:
+            exchange (Exchange): Exchange which is linked to the user account
+        """
+        self.id              = str(uuid1())[0:10]
+        self.exchange        = exchange
+        self.orders          = defaultdict(OrderedDict)
+        self.spot_wallets    = defaultdict(OrderedDict)
+        self.futures_wallets = defaultdict(OrderedDict)
+
+        self.spot_wallets   ["USDT"] = SpotWallet("USDT")
+        self.futures_wallets["USDT"] = FuturesUSDTWallet()
+
+    def transfer_spot_to_futures(self, amount):
+        self.futures_wallets["USDT"].fund(self.spot_wallets["USDT"].withdraw(amount))
+
+    def transfer_futures_to_spot(self, amount):
+        self.spot_wallets["USDT"].fund(self.futures_wallets["USDT"].withdraw(amount))
+
+    def __repr__(self):
+        return "<%s id:%s>"%(self.__class__.__name__, self.id)
+
+
 class Exchange:
 
     spot_maker_fee = 0.001
@@ -27,7 +145,7 @@ class Exchange:
         self._master_market  = None
 
     def new_account(self):
-        account = Exchange.Account(self)
+        account = Account(self)
         self.accounts[account.id] = account
         self.register_wallets_to_all_available_accounts()
         return account
@@ -61,14 +179,14 @@ class Exchange:
         [output.append(market) for market in self.futures_markets.values()]
         return output
 
-    def register_wallets_to_account(self, account: "Exchange.Account"):
+    def register_wallets_to_account(self, account: Account):
         for market in self.get_all_markets():
             market_kind = market.kind
             for market in self.get_all_markets():
                 if market_kind == "spot":
                     for pair in [market.pair1, market.pair2]:
                         if pair not in account.spot_wallets.keys():
-                            account.spot_wallets[pair] = Exchange.SpotWallet(pair)
+                            account.spot_wallets[pair] = SpotWallet(pair)
 
     def register_wallets_to_all_available_accounts(self):
         for account in self.accounts.values():
@@ -85,6 +203,7 @@ class Exchange:
         [market.set_master(self._master_market) for market in all_markets if
             market != self._master_market]
         [market.initialize() for market in all_markets]
+        # process the futures wallets
         return self
 
     def __next__(self):
@@ -93,75 +212,3 @@ class Exchange:
 
     def __repr__(self):
         return f"<{self.name}{self.__class__.__name__}>"
-
-# -------------------------- exchange account class -------------------------- #
-
-    class Account:
-
-        def __init__(self, exchange: "Exchange"):
-            """Base class for a user account
-
-            Args:
-                exchange (Exchange): Exchange which is linked to the user account
-            """
-            self.id                = str(uuid1())[0:10]
-            self.exchange          = exchange
-            self.orders            = defaultdict(OrderedDict)
-            self.spot_wallets      = defaultdict(OrderedDict)
-
-            self.spot_wallets["USDT"] = Exchange.SpotWallet("USDT")
-
-            self.futures_wallet    = Exchange.FuturesWallet()
-            self.futures_positions = OrderedDict()
-
-        def transfer_spot_to_futures(self, amount):
-            self.futures_wallet.fund(self.spot_wallets["USDT"].withdraw(amount))
-
-        def transfer_futures_to_spot(self, amount):
-            self.spot_wallets["USDT"].fund(self.futures_wallet.withdraw(amount))
-
-        def __repr__(self):
-            return "<%s id:%s>"%(self.__class__.__name__, self.id)
-
-# ----------------------- begin exchange wallet classes ---------------------- #
-
-    class Wallet(abc.ABC):
-
-        repr_decimals = 3
-
-        def __init__(self, asset_name: str):
-            """Base class for asset wallets
-
-            Args:
-                asset_name (str): name of asset i.e. "BTCUSDT", will be automatically
-                capitalize.
-            """
-            self.asset   = asset_name.upper()
-            self.balance = 0
-
-        @abc.abstractproperty
-        def kind(self):
-            return NotImplemented
-
-        def fund(self, amount):
-            self.balance += amount
-
-        def withdraw(self, amount):
-            assert amount <= self.balance, "insufficient funds"
-            self.balance -= amount
-            return amount
-
-        def __repr__(self):
-            template = \
-                f"%sWallet asset=%s balance=%0.{self.repr_decimals}f"
-            return template%(self.kind, self.asset, self.balance)
-
-
-    class SpotWallet(Wallet):
-        kind = "spot"
-
-
-    class FuturesWallet(Wallet):
-        kind = "futures"
-        def __init__(self):
-            super().__init__("USDT")

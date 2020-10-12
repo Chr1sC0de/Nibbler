@@ -1,5 +1,5 @@
 import abc
-from . exchange import Exchange
+from . exchange import Exchange, Account
 from ..markets import Market
 
 
@@ -12,20 +12,20 @@ class Order(abc.ABC):
     def from_total_spent(
         cls,
         market : Market,
-        account: Exchange.Account,
-        price: float,
-        total: float
+        account: Account,
+        price  : float,
+        total  : float
     ):
         amount = total/price
         return cls(market, account, price, amount)
 
     def __init__(
         self,
-        market : Market,
-        account: Exchange.Account,
-        price  : float,
-        amount : float,
-        timestop : int = None
+        market  : Market,
+        account : Account,
+        price   : float,
+        amount  : float,
+        timestop: int = None
     ):
         assert market.kind == self.kind
         self.market  = market
@@ -96,3 +96,13 @@ class Order(abc.ABC):
     def return_vault(self):
         NotImplemented
 
+
+class BuyOrder(Order):
+    side = "buy"
+
+    def initialize(self):
+        pass
+    
+
+class SellOrder(Order):
+    side = "sell"
