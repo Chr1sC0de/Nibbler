@@ -2,7 +2,7 @@ from collections import defaultdict, OrderedDict
 from typing import List
 import abc
 from uuid import uuid1
-from ..markets import Market
+from ..markets import Market, Futures
 from  .. import markets as mk
 
 
@@ -22,7 +22,7 @@ class Wallet(abc.ABC):
 
     @abc.abstractproperty
     def kind(self):
-        return NotImplmented
+        return NotImplemented
 
     def fund(self, amount):
         self.balance += amount
@@ -42,48 +42,6 @@ class SpotWallet(Wallet):
     kind = "spot"
 
 
-class FuturesWallet(Wallet):
-    kind = "futures"
-
-    def __init__(self, asset_name: str):
-        self.entry_price = None
-        self.leverage    = None
-        super().__init__(asset_name)
-
-    def set_entry_price(
-        self, amount: float, entry_price: float
-    ):
-        if self.entry_price is None:
-            self.entry_price = entry_price
-        else:
-            self.entry_price = (
-                self.entry_price * self.balance +
-                entry_price * amount
-            )/(self.balance + amount)
-    
-    def set_leverage(self, amount: float, leverage: float):
-        if self.leverage == None:
-            self.leverage = leverage
-        else:
-            self.leverage = (
-                self.leverage * self.balance +
-                leverage * amount
-            )/(self.balance + amount)
-        
-    def fund(
-        self, amount, entry_price, leverage
-    ):
-        if self.balance == 0:
-            self.entry_price = None
-            self.leverage    = None
-        self.set_entry_price(amount, entry_price) 
-        self.set_leverage(amount, leverage) 
-        self.balance += amount
-
-    def is_liquidated(self):
-        return False
-
-
 class FuturesUSDTWallet(Wallet):
     kind = "futures"
 
@@ -92,9 +50,6 @@ class FuturesUSDTWallet(Wallet):
 
     def fund(self, amount):
         self.balance += amount
-
-    def is_liquidated(self):
-        return False
 
 
 class Account:
@@ -105,20 +60,20 @@ class Account:
         Args:
             exchange (Exchange): Exchange which is linked to the user account
         """
-        self.id              = str(uuid1())[0:10]
-        self.exchange        = exchange
-        self.orders          = defaultdict(OrderedDict)
-        self.spot_wallets    = defaultdict(OrderedDict)
-        self.futures_wallets = defaultdict(OrderedDict)
+        self.id                = str(uuid1())[0:10]
+        self.exchange          = exchange
+        self.orders            = defaultdict(OrderedDict)
+        self.spot_wallets      = defaultdict(OrderedDict)
+        self.futures_positions = defaultdict(OrderedDict)
 
-        self.spot_wallets   ["USDT"] = SpotWallet("USDT")
-        self.futures_wallets["USDT"] = FuturesUSDTWallet()
+        self.spot_wallets["USDT"] = SpotWallet("USDT")
+        self.futures_wallet = FuturesUSDTWallet()
 
     def transfer_spot_to_futures(self, amount):
-        self.futures_wallets["USDT"].fund(self.spot_wallets["USDT"].withdraw(amount))
+        self.futures_wallet.fund(self.spot_wallets["USDT"].withdraw(amount))
 
     def transfer_futures_to_spot(self, amount):
-        self.spot_wallets["USDT"].fund(self.futures_wallets["USDT"].withdraw(amount))
+        self.spot_wallets["USDT"].fund(self.futures_wallet.withdraw(amount))
 
     def __repr__(self):
         return "<%s id:%s>"%(self.__class__.__name__, self.id)

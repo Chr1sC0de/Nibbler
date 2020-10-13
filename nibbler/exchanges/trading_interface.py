@@ -1,11 +1,11 @@
-from .exchange import Exchange
+from .exchange import Exchange, Account
 from ..markets import Market, Spot, Futures
 import abc
 
 
 class TradingInterface(abc.ABC):
 
-    def __init__(self, market: Market, exchange: Exchange, account: Exchange.Account):
+    def __init__(self, market: Market, exchange: Exchange, account: Account):
         self.exchange = exchange
         self.account  = account
         self.market   = market
@@ -39,6 +39,6 @@ class TradingInterface(abc.ABC):
 
 class SpotTrading(TradingInterface):
 
-    def __init__(self, market: Spot, exchange: Exchange, account: Exchange.Account):
-        assert isinstance(market, Spot), "input market is not a spot market
-        super().__init__(market, exchange, account
+    def __init__(self, market: Spot, exchange: Exchange, account: Account):
+        assert isinstance(market, Spot), "input market is not a spot market"
+        super().__init__(market, exchange, account)

@@ -100,14 +100,14 @@ class Market(abc.ABC):
     #         order_dictionary[order_id] = order
     #         order.id = order_id
 
-    # def add_stops(self, *stops: "Stop"):
-    #     for stop in stops:
-    #         stop_dictionary = self.stops[stop.trader]
-    #         stop_id         = len(stop_dictionary)
-    #         while stop_id in stop_dictionary.keys():
-    #             stop_id += 1
-    #         stop_dictionary[stop_id] = stop
-    #         stop.id = stop_id
+    def add_stops(self, *stops: "Stop"):
+        for stop in stops:
+            stop_dictionary = self.stops[stop.trader]
+            stop_id         = len(stop_dictionary)
+            while stop_id in stop_dictionary.keys():
+                stop_id += 1
+            stop_dictionary[stop_id] = stop
+            stop.id = stop_id
 
     def inititialize(self):
         return iter(self)
@@ -246,9 +246,6 @@ class Market(abc.ABC):
 
         assert len(figures) > 0, "specified time frames do not exist"
         return column(figures)
-
-
-
 # ---------------------------------------------------------------------------- #
 class Spot(Market):
     kind      = "spot"

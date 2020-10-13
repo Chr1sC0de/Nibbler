@@ -33,6 +33,7 @@ class Order(abc.ABC):
         self.price   = price
         self.amount  = amount
         self.id      = None
+        self.vault   = 0
         self.set_timestop(timestop)
 
         self.check_viable()
@@ -95,14 +96,3 @@ class Order(abc.ABC):
     @abc.abstractmethod
     def return_vault(self):
         NotImplemented
-
-
-class BuyOrder(Order):
-    side = "buy"
-
-    def initialize(self):
-        pass
-    
-
-class SellOrder(Order):
-    side = "sell"
