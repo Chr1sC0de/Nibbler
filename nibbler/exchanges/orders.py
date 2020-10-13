@@ -19,24 +19,44 @@ class Order(abc.ABC):
         amount = total/price
         return cls(market, account, price, amount)
 
+    @abc.abstractclassmethod
+    def check_already_triggered(cls, market, price):
+        NotImplemented
+    
+    def __new__(cls, 
+        market         : Market,
+        account        : Account,
+        price          : float,
+        amount         : float,
+        timestop       : int = None,
+        is_market_price: bool = False
+    ):
+        if cls.check_already_triggered(market, price):
+            is_market_price = True
+        return super().__new__(
+            cls, market, account, price, amount,
+            timestop, market, is_market_price
+        )
+
     def __init__(
         self,
-        market  : Market,
-        account : Account,
-        price   : float,
-        amount  : float,
-        timestop: int = None
+        market         : Market,
+        account        : Account,
+        price          : float,
+        amount         : float,
+        timestop       : int = None,
+        is_market_price: bool = False
     ):
         assert market.kind == self.kind
-        self.market  = market
-        self.account = account
-        self.price   = price
-        self.amount  = amount
-        self.id      = None
-        self.vault   = 0
+        self.market          = market
+        self.account         = account
+        self.price           = price
+        self.amount          = amount
+        self.is_market_price = is_market_price
+        self.id              = None
+        self.vault           = 0
         self.set_timestop(timestop)
 
-        self.check_viable()
         self.initialize()
         self.add_self_to_market_and_account()
 
@@ -65,11 +85,14 @@ class Order(abc.ABC):
         return False
 
     def process(self):
-        if self.check_triggered():
+        if self.is_market_price:
+            self.price = self.market.current_open
+        elif self.check_triggered():
             self.on_fill()
+            if self.vault == 0:
+                self.close()
+        elif self.is_timestopped():
             self.close()
-            return 0
-        self.check_viable()
 
     def close(self):
         self.return_vault()
@@ -78,7 +101,7 @@ class Order(abc.ABC):
         del self.account.orders[self.market][self.id]
 
     @abc.abstractmethod
-    def check_viable(self):
+    def check_triggered(self):
         NotImplemented
 
     @abc.abstractmethod
@@ -87,10 +110,6 @@ class Order(abc.ABC):
 
     @abc.abstractmethod
     def on_fill(self):
-        NotImplemented
-
-    @abc.abstractmethod
-    def check_triggered(self):
         NotImplemented
 
     @abc.abstractmethod

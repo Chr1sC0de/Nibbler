@@ -42,10 +42,10 @@ class Market(abc.ABC):
         self._master             = None
 
         if slippage is None:
-            self._slippage = lambda quantity, market: quantity
+            self._slippage = lambda market: 1 
 
-    def slippage(self, quantity):
-        return self._slippage(quantity, self)
+    def slippage(self):
+        return self._slippage(self)
 
     def add_ohlcv_feed_from_csv(self, *paths: Iterable[pt.Path]):
         for path in paths:

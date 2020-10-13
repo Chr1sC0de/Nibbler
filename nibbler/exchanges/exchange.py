@@ -36,12 +36,10 @@ class Wallet(abc.ABC):
         template = \
             f"%sWallet asset=%s balance=%0.{self.repr_decimals}f"
         return template%(self.kind, self.asset, self.balance)
-
-
+# ---------------------------------------------------------------------------- #
 class SpotWallet(Wallet):
     kind = "spot"
-
-
+# ---------------------------------------------------------------------------- #
 class FuturesUSDTWallet(Wallet):
     kind = "futures"
 
@@ -50,8 +48,7 @@ class FuturesUSDTWallet(Wallet):
 
     def fund(self, amount):
         self.balance += amount
-
-
+# ---------------------------------------------------------------------------- #
 class Account:
 
     def __init__(self, exchange: "Exchange"):
@@ -77,8 +74,7 @@ class Account:
 
     def __repr__(self):
         return "<%s id:%s>"%(self.__class__.__name__, self.id)
-
-
+# ---------------------------------------------------------------------------- #
 class Exchange:
 
     spot_maker_fee = 0.001
