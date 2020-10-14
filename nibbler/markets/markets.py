@@ -42,7 +42,10 @@ class Market(abc.ABC):
         self._master             = None
 
         if slippage is None:
-            self._slippage = lambda market: 1 
+            self._slippage = lambda market: 1
+
+    def set_slippage_function(self, slippage_function):
+        self._slippage = slippage_function
 
     def slippage(self):
         return self._slippage(self)
@@ -50,7 +53,6 @@ class Market(abc.ABC):
     def add_ohlcv_feed_from_csv(self, *paths: Iterable[pt.Path]):
         for path in paths:
             self.add_feeds(csv.OHLCV(path))
-
 
     def set_master(self, master_market: "Market"):
         assert isinstance(master_market, Market), "input must be a Market object"

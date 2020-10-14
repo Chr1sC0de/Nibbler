@@ -22,8 +22,8 @@ class Order(abc.ABC):
     @abc.abstractclassmethod
     def check_already_triggered(cls, market, price):
         NotImplemented
-    
-    def __new__(cls, 
+
+    def __new__(cls,
         market         : Market,
         account        : Account,
         price          : float,
