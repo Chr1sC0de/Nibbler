@@ -35,9 +35,10 @@ class SpotBuyOrder(SpotOrder):
 
     def on_fill(self):
         # get the slippage from the market
-        slippage = self.market.slippage()
-        amount_filled = self.vault * slippage
-        self.vault -= amount_filled
+        intended_amount  = self.vault/self.price
+        amount_filled    = self.market.fill_amount(intended_amount)
+        amount_filled    = self.vault * slippage
+        self.vault      -= amount_filled
         self.wallet_2.fund(amount_filled/self.price)
 
     def return_vault(self):
@@ -62,3 +63,9 @@ class SpotSellOrder(SpotOrder):
 
     def initialize(self):
         self.vault += self.wallet_2.withdraw(self.amount)
+    
+    def on_fill(self):
+        slippage = self.market.get_slippage()
+        amount_filled = 
+
+

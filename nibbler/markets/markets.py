@@ -42,13 +42,15 @@ class Market(abc.ABC):
         self._master             = None
 
         if slippage is None:
-            self._slippage = lambda market: 1
+            # the slippage takes in qunatity and the current amarket
+            # and returns the amount which is filled.
+            self._slippage = lambda quantity, market: quantity
 
     def set_slippage_function(self, slippage_function):
         self._slippage = slippage_function
 
-    def slippage(self):
-        return self._slippage(self)
+    def fill_amount(self, quantity):
+        return self._slippage(quantity, self)
 
     def add_ohlcv_feed_from_csv(self, *paths: Iterable[pt.Path]):
         for path in paths:

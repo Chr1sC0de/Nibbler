@@ -59,6 +59,11 @@ class Order(abc.ABC):
 
         self.initialize()
         self.add_self_to_market_and_account()
+    
+    def withdraw(self, amount):
+        assert amount <= self.vault, "withdrawn amount is greater than vault balance"
+        self.vault -= amount
+        return amount
 
     def add_self_to_market_and_account(self):
         order_dict = self.market.orders[self.account]
