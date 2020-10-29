@@ -1,7 +1,7 @@
 import nibbler as nb
 import pathlib as pt
 
-cwd = pt.Path(__file__)
+cwd = pt.Path(__file__).parent
 resource_directory = cwd/"../../resources/data"
 assert resource_directory.exists()
 
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     binance_exchange = nb.exchanges.Exchange("binance")
 
     # register a new market to the exchange
-    btc_market = binance_exchange.new_spot_markt("BTC", "USDT")
+    btc_market = binance_exchange.new_spot_market("BTC", "USDT")
     btc_market.add_ohlcv_feed_from_csv(btc_15m, btc_1h, btc_4h)
 
     # create a new user account

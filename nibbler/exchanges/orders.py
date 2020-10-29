@@ -19,24 +19,9 @@ class Order(abc.ABC):
         amount = total/price
         return cls(market, account, price, amount)
 
-    @abc.abstractclassmethod
-    def check_already_triggered(cls, market, price):
+    @abc.abstractmethod
+    def check_already_triggered(self, market, price):
         NotImplemented
-
-    def __new__(cls,
-        market         : Market,
-        account        : Account,
-        price          : float,
-        amount         : float,
-        timestop       : int = None,
-        is_market_price: bool = False
-    ):
-        if cls.check_already_triggered(market, price):
-            is_market_price = True
-        return super().__new__(
-            cls, market, account, price, amount,
-            timestop, market, is_market_price
-        )
 
     def __init__(
         self,
@@ -47,6 +32,8 @@ class Order(abc.ABC):
         timestop       : int = None,
         is_market_price: bool = False
     ):
+        if self.check_already_triggered(market, price):
+            is_market_price = True
         assert market.kind == self.kind
         self.market          = market
         self.account         = account
@@ -59,9 +46,17 @@ class Order(abc.ABC):
 
         self.initialize()
         self.add_self_to_market_and_account()
-    
+
+    @property
+    def fees(self):
+        if self.is_market_price:
+            return self.market.taker_fee
+        return self.market.maker_fee
+
     def withdraw(self, amount):
-        assert amount <= self.vault, "withdrawn amount is greater than vault balance"
+        # assert amount <= self.vault, "withdrawn amount is greater than vault
+        # balance"
+        if amount > self.vault: amount = self.vault
         self.vault -= amount
         return amount
 
@@ -90,14 +85,19 @@ class Order(abc.ABC):
         return False
 
     def process(self):
+
         if self.is_market_price:
             self.price = self.market.current_open
-        elif self.check_triggered():
+
+        if self.check_triggered():
             self.on_fill()
             if self.vault == 0:
                 self.close()
-        elif self.is_timestopped():
+            return 0
+
+        if self.is_timestopped():
             self.close()
+            return 0
 
     def close(self):
         self.return_vault()

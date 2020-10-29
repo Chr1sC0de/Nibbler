@@ -2,9 +2,9 @@ from collections import defaultdict, OrderedDict
 from typing import List
 import abc
 from uuid import uuid1
+import numpy as np
 from ..markets import Market, Futures
 from  .. import markets as mk
-
 
 class Wallet(abc.ABC):
 
@@ -28,7 +28,8 @@ class Wallet(abc.ABC):
         self.balance += amount
 
     def withdraw(self, amount):
-        assert amount <= self.balance, "insufficient funds"
+        # assert amount <= self.balance, "insufficient funds"
+        if amount > self.balance: amount = self.balance
         self.balance -= amount
         return amount
 
@@ -60,6 +61,7 @@ class Account:
         self.id                = str(uuid1())[0:10]
         self.exchange          = exchange
         self.orders            = defaultdict(OrderedDict)
+
         self.spot_wallets      = defaultdict(OrderedDict)
         self.futures_positions = defaultdict(OrderedDict)
 
@@ -163,3 +165,46 @@ class Exchange:
 
     def __repr__(self):
         return f"<{self.name}{self.__class__.__name__}>"
+# ---------------------------------------------------------------------------- #
+class Position:
+    '''
+        currently positions are only one-way and isolated
+        position on futures
+        side can be either long or short
+    '''
+
+    @staticmethod
+    def weighted_average(value_list: np.ndarray, weighting_list: np.ndarray):
+        value_list     = np.array(value_list)
+        weighting_list = np.array(weighting_list)
+        return  (value_list*weighting_list).sum()/weighting_list.sum()
+
+    def __init__(self, side: str, market: Market, account: Account):
+        assert side in ["long", "short", None]
+        self.side    = side
+        self.market  = market
+        self.account = account
+
+    def liquidation_pice(self):
+        pass
+
+    def maintenance_margin(self):
+        pass
+
+    def maximum_unrealised_profit_or_loss(self):
+        # calculates the maximum unrealised profit and loss for the current candle
+        if self.side == "long":
+            pass
+        if self.side == "short":
+            pass
+        return 0
+
+    @abc.abstractmethod
+    def process(self):
+        NotImplemented
+
+    def sell(self, amount, price, leverage=1, reduce_only=False):
+        pass
+
+    def buy(self, amount, price, leverage=1, reduce_only=False):
+        pass

@@ -245,7 +245,6 @@ class OHLCV(Feed):
     def plot(self, *args, **kwargs):
         candlestick_chart               = self.plot_candlesticks(*args, **kwargs)
         candlestick_chart.xaxis.visible = False
-        # remove
         kwargs.pop("x_range", None)
         volume_chart                    = self.plot_volume(
             *args, x_range=candlestick_chart.x_range, **kwargs)

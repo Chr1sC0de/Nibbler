@@ -36,7 +36,6 @@ class TradingInterface(abc.ABC):
     def stop_limit_sell(self, amount, *args, **kwargs):
         NotImplemented
 
-
 class SpotTrading(TradingInterface):
 
     def __init__(self, market: Spot, exchange: Exchange, account: Account):

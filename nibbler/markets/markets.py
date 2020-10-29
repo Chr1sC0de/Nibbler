@@ -95,15 +95,6 @@ class Market(abc.ABC):
             if feed.__class__.__name__ == "OHLCV":
                 self.feeds_ohlcv[feed.timeframe] = feed
 
-    # def add_orders(self, *orders: "Order"):
-    #     for order in orders:
-    #         order_dictionary = self.orders[order.trader]
-    #         order_id = len(order_dictionary)
-    #         while order_id in order_dictionary.keys():
-    #             order_id += 1
-    #         order_dictionary[order_id] = order
-    #         order.id = order_id
-
     def add_stops(self, *stops: "Stop"):
         for stop in stops:
             stop_dictionary = self.stops[stop.trader]
@@ -113,7 +104,7 @@ class Market(abc.ABC):
             stop_dictionary[stop_id] = stop
             stop.id = stop_id
 
-    def inititialize(self):
+    def initialize(self):
         return iter(self)
 
     def step(self):
@@ -124,6 +115,12 @@ class Market(abc.ABC):
             if key != self.master_key:
                 feed.set_master(self.master_feed)
             self.master_feed.initialize()
+
+        # get the master ohlcv_key
+        ohlc_feeds = list(self.feeds_ohlcv.values())
+        ohlc_feeds.sort(key=lambda  x: x.smallest_time_delta)
+        self.master_ohlcv_key = ohlc_feeds[0].timeframe
+
         return self
 
     def __next__(self):
@@ -156,7 +153,7 @@ class Market(abc.ABC):
 
     @property
     def master_feed_ohlcv(self) -> OHLCV:
-        return self.feeds_ohlcv[self.smallest_time_delta]
+        return self.feeds_ohlcv[self.master_ohlcv_key]
 
     @property
     def start_datetime(self):
@@ -220,13 +217,10 @@ class Market(abc.ABC):
         return output
 
     def plot_multi_timeframe_ohlcv(self, time_frames="all", **kwargs):
-
         figures = []
         plotted_first_figure = False
-
         feeds = list(self.feeds_ohlcv.values())
         feeds.sort(key=lambda x: x.smallest_time_delta)
-
         for _, feed in enumerate(feeds):
             do_plot = False
 
@@ -239,11 +233,11 @@ class Market(abc.ABC):
                 elif any(
                     [(time_frame in feed.timeframe) for time_frame in time_frames]):
                     do_plot = True
-
             if do_plot:
                 if not plotted_first_figure:
                     fig       = feed.plot()
                     first_fig = fig
+                    plotted_first_figure = True
                 else:
                     fig = feed.plot(x_range=first_fig.children[0].x_range)
                 figures.append(fig)
