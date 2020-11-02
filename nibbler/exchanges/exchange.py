@@ -6,6 +6,7 @@ import numpy as np
 from ..markets import Market, Futures
 from  .. import markets as mk
 
+
 class Wallet(abc.ABC):
 
     repr_decimals = 3
