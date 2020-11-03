@@ -30,14 +30,21 @@ class Order(abc.ABC):
         price          : float,
         amount         : float,
         timestop       : int = None,
-        is_market_price: bool = False
+        is_market_price: bool = False,
+        logger = None
     ):
         if self.check_already_triggered(market, price):
             is_market_price = True
         assert market.kind == self.kind
         self.market          = market
+
         self.account         = account
-        self.price           = price
+
+        if is_market_price:
+            self.price = self.market.current_close
+        else:
+            self.price = price
+
         self.amount          = amount
         self.is_market_price = is_market_price
         self.id              = None
@@ -46,6 +53,11 @@ class Order(abc.ABC):
 
         self.initialize()
         self.add_self_to_market_and_account()
+
+        # function which logs transaction on open and close
+        self.logger = logger
+        if self.logger is not None:
+            self.logger.on_open()
 
     @property
     def fees(self):
@@ -91,6 +103,9 @@ class Order(abc.ABC):
 
         if self.check_triggered():
             self.on_fill()
+            # as the order has been fill log the data with the logging function
+            if self.logger is not None:
+                self.logger.on_fill()
             if self.vault == 0:
                 self.close()
             return 0
@@ -102,6 +117,8 @@ class Order(abc.ABC):
     def close(self):
         self.return_vault()
         self.close_datetime = self.market.master_feed.current_datetime
+        if self.logger is not None:
+            self.logger.on_close()
         del self.market.orders[self.account][self.id]
         del self.account.orders[self.market][self.id]
 

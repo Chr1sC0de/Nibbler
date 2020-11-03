@@ -39,9 +39,11 @@ if __name__ == "__main__":
     order_generated = True
     show(fig)
     print(new_account.spot_wallets)
+    print(new_account.spot_portfolio_value())
 
     for i in range(200): binance_exchange.step()
     print(new_account.spot_wallets)
+    print(new_account.spot_portfolio_value())
 
     btc_market.plot_multi_timeframe_ohlcv()
     fig = btc_market.plot_multi_timeframe_ohlcv()
@@ -49,15 +51,19 @@ if __name__ == "__main__":
     sell_order.plot(fig.children[0].children[0])
     show(fig)
     print(new_account.spot_wallets)
+    print(new_account.spot_portfolio_value())
 
     for i in range(1000): binance_exchange.step()
     print(new_account.spot_wallets)
-
+    print(new_account.spot_portfolio_value())
     btc_market.plot_multi_timeframe_ohlcv()
     fig = btc_market.plot_multi_timeframe_ohlcv()
     show(fig)
 
     for i in range(1): binance_exchange.step()
     print(new_account.spot_wallets)
+
+    print(new_account.futures_wallet)
+    print(new_account.spot_portfolio_value())
 
     pass

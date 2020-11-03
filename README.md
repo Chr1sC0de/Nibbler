@@ -6,6 +6,7 @@ multi-asset analysis, sentiment analysis, limit orders for ab methods as well as
 isolated futures trading.
 
 tbd:
+    arbitrage
     scanners
     statistical analysis
     documentation

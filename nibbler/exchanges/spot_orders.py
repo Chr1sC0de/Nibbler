@@ -26,6 +26,8 @@ class SpotOrder(Order):
 # ---------------------------------------------------------------------------- #
 class SpotBuyOrder(SpotOrder):
 
+    side = "long"
+
     def check_already_triggered(self, market: Market, price: float):
         # when entering a buy order the buy order price must be less than or equal to
         # the current price, if it is greater than the current price then the order
@@ -62,6 +64,8 @@ class SpotBuyOrder(SpotOrder):
 
 # ---------------------------------------------------------------------------- #
 class SpotSellOrder(SpotOrder):
+
+    side = "short"
 
     def check_already_triggered(self, market: Market, price: float):
         # if price is less than or equal to the current candle close the

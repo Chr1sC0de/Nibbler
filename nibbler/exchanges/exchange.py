@@ -75,6 +75,26 @@ class Account:
     def transfer_futures_to_spot(self, amount):
         self.spot_wallets["USDT"].fund(self.futures_wallet.withdraw(amount))
 
+    def spot_portfolio_value(self, asset="USDT"):
+        # calculate the current portfolio value in usdt/btc
+        value = 0
+        value += self.spot_wallets[asset].balance
+        markets = self.exchange.spot_markets
+
+        for key in [key for key in self.spot_wallets.keys() if not asset in key] :
+            value += self.spot_wallets[key].balance * \
+                markets["%sUSDT"%key].current_close
+
+        for market, orders in self.orders.items():
+            if market.kind == "spot":
+                if asset in market.pair2:
+                    for order in orders.values():
+                            if order.side == "long":
+                                value += order.vault
+                            if order.side == "short":
+                                value += order.vault * order.market.current_close
+        return value
+
     def __repr__(self):
         return "<%s id:%s>"%(self.__class__.__name__, self.id)
 # ---------------------------------------------------------------------------- #
